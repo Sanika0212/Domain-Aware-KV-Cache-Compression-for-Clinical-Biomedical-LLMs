@@ -4,14 +4,21 @@ its KV cache during prefill via real `kvpress` presses (including our
 
 No mocked tensors, no fabricated metrics. Memory and latency numbers come
 from the real `DynamicCache` and `time.time()` around real forward passes.
+
+Usage:
+    python benchmarks/runner.py --model Qwen/Qwen2.5-0.5B-Instruct \
+        --n-synthetic 12 --n-pubmedqa 8 --ratios 0.3 0.6 --out results/runs.csv
 """
+import argparse
 import contextlib
+import csv
 import time
 from collections import Counter
-from typing import List
+from pathlib import Path
+from typing import List, Optional
 
 import torch
-from transformers import DynamicCache
+from transformers import AutoModelForCausalLM, AutoTokenizer, DynamicCache
 
 from kvpress import RandomPress, KnormPress, SnapKVPress
 
@@ -20,7 +27,7 @@ from domain_kv.allocator import allocate_token_budgets
 from domain_kv.press import DomainAwarePress
 from domain_kv import metrics as dkv_metrics
 
-from benchmarks.loader import BenchmarkExample
+from benchmarks.loader import BenchmarkExample, load_synthetic_notes, load_pubmedqa
 
 
 def f1_score(pred: str, gold: str) -> float:
@@ -112,6 +119,8 @@ def run_example(model, tokenizer, example: BenchmarkExample, press_name: str, ra
             model.model(input_ids=context_ids, past_key_values=cache)
     answer = generate_answer(model, tokenizer, question_ids, cache, n_tokens, max_new_tokens)
     elapsed = time.time() - t0
+    kept_tokens = dkv_metrics.cache_num_tokens(cache)
+    mem_bytes = dkv_metrics.cache_bytes(cache)
 
     return {
         "example_id": example.example_id,
@@ -121,6 +130,55 @@ def run_example(model, tokenizer, example: BenchmarkExample, press_name: str, ra
         "score": score_example(example, answer),
         "elapsed_s": elapsed,
         "orig_tokens": n_tokens,
-        "kept_tokens": dkv_metrics.cache_num_tokens(cache),
-        "mem_bytes": dkv_metrics.cache_bytes(cache),
+        "kept_tokens": kept_tokens,
+        "mem_bytes": mem_bytes,
     }
+
+
+def run_benchmark(model_name: str, examples: List[BenchmarkExample], presses: List[str], ratios: List[float], max_new_tokens: int) -> List[dict]:
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype=torch.float32)
+    model.eval()
+
+    rows = []
+    for example in examples:
+        for press_name in presses:
+            ratio_values = [0.0] if press_name == "oracle" else ratios
+            for ratio in ratio_values:
+                row = run_example(model, tokenizer, example, press_name, ratio, max_new_tokens)
+                rows.append(row)
+                print(f"[{row['example_id']:>16}] press={press_name:<12} ratio={ratio:.2f} "
+                      f"kept={row['kept_tokens']:>4}/{row['orig_tokens']:<4} score={row['score']:.2f} "
+                      f"t={row['elapsed_s']:.2f}s")
+    return rows
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--model", default="Qwen/Qwen2.5-0.5B-Instruct")
+    parser.add_argument("--n-synthetic", type=int, default=12)
+    parser.add_argument("--n-pubmedqa", type=int, default=0, help="Set >0 to also benchmark on real PubMedQA (downloads from HF Hub).")
+    parser.add_argument("--ratios", type=float, nargs="+", default=[0.3, 0.6])
+    parser.add_argument("--presses", nargs="+", default=["oracle", "random", "knorm", "snapkv", "domain_aware"])
+    parser.add_argument("--max-new-tokens", type=int, default=24)
+    parser.add_argument("--seed", type=int, default=0)
+    parser.add_argument("--out", default="results/runs.csv")
+    args = parser.parse_args()
+
+    examples = load_synthetic_notes(n=args.n_synthetic, seed=args.seed)
+    if args.n_pubmedqa > 0:
+        examples += load_pubmedqa(n=args.n_pubmedqa)
+
+    rows = run_benchmark(args.model, examples, args.presses, args.ratios, args.max_new_tokens)
+
+    out_path = Path(args.out)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    with out_path.open("w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
+        writer.writeheader()
+        writer.writerows(rows)
+    print(f"\nWrote {len(rows)} rows to {out_path}")
+
+
+if __name__ == "__main__":
+    main()
