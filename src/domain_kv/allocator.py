@@ -91,3 +91,15 @@ def allocate_token_budgets(
                 remainder -= give
 
     return {i: int(budgets[i]) for i in range(len(canonical_names))}
+
+
+def allocate_budgets(sections: Dict[str, str], total_budget: int, weights: Dict[str, float] = None) -> Dict[str, int]:
+    """String-keyed convenience wrapper (used by quick demos that only have
+    section text, not a tokenizer). Approximates token count via whitespace
+    splitting; prefer `allocate_token_budgets` for real KV-cache budgeting.
+    """
+    names = list(sections.keys())
+    counts = np.array([max(1, len(t.split())) for t in sections.values()], dtype=np.int64)
+    fake_ids = np.repeat(np.arange(len(names)), counts)
+    budgets = allocate_token_budgets(fake_ids, names, total_budget, weights)
+    return {names[i]: budgets[i] for i in range(len(names))}
