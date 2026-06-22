@@ -5,16 +5,20 @@ its KV cache during prefill via real `kvpress` presses (including our
 No mocked tensors, no fabricated metrics. Memory and latency numbers come
 from the real `DynamicCache` and `time.time()` around real forward passes.
 """
+import contextlib
+import time
 from collections import Counter
 from typing import List
 
 import torch
+from transformers import DynamicCache
 
 from kvpress import RandomPress, KnormPress, SnapKVPress
 
 from domain_kv.section_parser import tag_token_sections
 from domain_kv.allocator import allocate_token_budgets
 from domain_kv.press import DomainAwarePress
+from domain_kv import metrics as dkv_metrics
 
 from benchmarks.loader import BenchmarkExample
 
@@ -91,3 +95,32 @@ def build_press(name: str, ratio: float, example: BenchmarkExample, tokenizer, n
         press.set_document(section_ids, budgets)
         return press
     raise ValueError(f"Unknown press {name!r}")
+
+
+def run_example(model, tokenizer, example: BenchmarkExample, press_name: str, ratio: float, max_new_tokens: int) -> dict:
+    context_ids = tokenizer(example.note.text, return_tensors="pt", add_special_tokens=True).input_ids.to(model.device)
+    question_ids = tokenizer(example.question + "\nAnswer:", return_tensors="pt", add_special_tokens=False).input_ids.to(model.device)
+    n_tokens = context_ids.shape[1]
+
+    press = build_press(press_name, ratio, example, tokenizer, n_tokens)
+    cache = DynamicCache()
+
+    t0 = time.time()
+    cm = press(model) if press is not None else contextlib.nullcontext()
+    with cm:
+        with torch.no_grad():
+            model.model(input_ids=context_ids, past_key_values=cache)
+    answer = generate_answer(model, tokenizer, question_ids, cache, n_tokens, max_new_tokens)
+    elapsed = time.time() - t0
+
+    return {
+        "example_id": example.example_id,
+        "press": press_name,
+        "ratio": ratio,
+        "answer": answer,
+        "score": score_example(example, answer),
+        "elapsed_s": elapsed,
+        "orig_tokens": n_tokens,
+        "kept_tokens": dkv_metrics.cache_num_tokens(cache),
+        "mem_bytes": dkv_metrics.cache_bytes(cache),
+    }
