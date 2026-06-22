@@ -1,0 +1,738 @@
+example_id,press,ratio,answer,score,elapsed_s,orig_tokens,kept_tokens,mem_bytes
+synthetic_0,oracle,0.0, Heparin 5000 units subcutaneously. Multivitamin daily. The medication,0.5,0.953016996383667,274,274,6733824
+synthetic_0,random,0.3, Heparin 5000 units subcutaneously. Multivitamin daily. The medication,0.5,0.8469438552856445,274,191,4694016
+synthetic_0,random,0.5," Heparin 5000 units subcutaneous.
+Question: What is the chief complaint",0.4285714285714285,0.8296740055084229,274,137,3366912
+synthetic_0,random,0.7, Patient is a 59 years old and the patient is a 59 years old and the,0.0,0.8282458782196045,274,82,2015232
+synthetic_0,knorm,0.3, Heparin 500 units subcutaneously. The patient was started on heparin,0.28571428571428575,0.8356468677520752,274,191,4694016
+synthetic_0,knorm,0.5, The patient was started on heparin 500 units subcutaneously. The dose was,0.25,0.8388190269470215,274,137,3366912
+synthetic_0,knorm,0.7, The patient was started on a combination of insulin and metformin. The patient was started on a,0.0,0.8521497249603271,274,82,2015232
+synthetic_0,snapkv,0.3, Heparin 5000 units. The patient was started on heparin 5,0.28571428571428575,0.8623771667480469,274,191,4694016
+synthetic_0,snapkv,0.5," The patient was started on the medication heparin, which was administered at a dose of 1",0.0,0.8583910465240479,274,137,3366912
+synthetic_0,snapkv,0.7," The patient was started on insulin therapy, and the dose was 0.5 units per kilogram",0.10526315789473685,0.8546900749206543,274,82,2015232
+synthetic_0,domain_aware,0.3, Heparin 500 units subcutaneously. The patient was started with heparin,0.28571428571428575,0.8519060611724854,274,192,4718592
+synthetic_0,domain_aware,0.5, Heparin 500 units subcutaneously. The patient was started on heparin,0.28571428571428575,0.8371891975402832,274,137,3366912
+synthetic_0,domain_aware,0.7, The patient was started on heparin 1000 units IV bolus and 1,0.25,0.8300280570983887,274,82,2015232
+synthetic_1,oracle,0.0, Heparin 5000 units subcutaneously. Multivitamin daily. The medication,0.5,0.8615319728851318,280,280,6881280
+synthetic_1,random,0.3, Heparin 5000 units subcutaneously. Multivitamin daily. Hepar,0.5454545454545454,0.8363502025604248,280,196,4816896
+synthetic_1,random,0.5, Heparin 5000 units subcutaneously subcutaneously subcutaneously subcut,0.7272727272727273,0.8317360877990723,280,140,3440640
+synthetic_1,random,0.7, Patient is a 60-year-old female presenting with fever and cough for the past 2 days,0.0,0.848966121673584,280,84,2064384
+synthetic_1,knorm,0.3, Heparin 500 units subcutaneously. The patient was started on heparin,0.28571428571428575,0.845073938369751,280,196,4816896
+synthetic_1,knorm,0.5, The patient was started on heparin subcutaneously (subcutaneous) at a dose of,0.25,0.8329508304595947,280,140,3440640
+synthetic_1,knorm,0.7, Heparin was started at 1000 units/kg/hr and was continued for 2,0.13333333333333333,0.8380331993103027,280,84,2064384
+synthetic_1,snapkv,0.3, Heparin 500 mg intravenous infusion. The patient was started on heparin,0.13333333333333333,0.8600389957427979,280,196,4816896
+synthetic_1,snapkv,0.5, The patient was started on heparin (100 mg) and was observed for 2,0.11764705882352941,0.8647198677062988,280,140,3440640
+synthetic_1,snapkv,0.7," The patient was started on insulin therapy, and the dose was 0.5 units per kilogram",0.10526315789473685,0.8453691005706787,280,84,2064384
+synthetic_1,domain_aware,0.3, Heparin 500 units subcutaneously. The patient was started with heparin,0.28571428571428575,0.8676772117614746,280,196,4816896
+synthetic_1,domain_aware,0.5, Heparin 500 units subcutaneously. The patient was started on heparin,0.28571428571428575,0.8456928730010986,280,140,3440640
+synthetic_1,domain_aware,0.7, The patient was started on heparin 1000 units IV bolus and 1,0.25,0.8333108425140381,280,84,2064384
+synthetic_2,oracle,0.0, Aspirin 81 mg daily.,0.75,0.5213370323181152,265,265,6512640
+synthetic_2,random,0.3, Aspirin 81 mg 81 mg 81 mg 81 mg ,0.46153846153846156,0.8412978649139404,265,185,4546560
+synthetic_2,random,0.5, Aspirin 81 mg daily. Multivitamin 300 mg daily. Mult,0.46153846153846156,0.829596996307373,265,132,3244032
+synthetic_2,random,0.7, 8L 8J 8R 8L 8L 8L 8,0.0,0.8362617492675781,265,79,1941504
+synthetic_2,knorm,0.3, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8413040637969971,265,185,4546560
+synthetic_2,knorm,0.5, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8286049365997314,265,132,3244032
+synthetic_2,knorm,0.7, Aspirin 75 mg daily. The patient was started on aspirin 75 mg,0.25,0.8277029991149902,265,79,1941504
+synthetic_2,snapkv,0.3, Aspirin 81 mg daily. The patient was started on aspirin 81 mg,0.375,0.8431332111358643,265,185,4546560
+synthetic_2,snapkv,0.5, The patient was started on aspirin (aspirin) at a dose of 100,0.125,0.8355100154876709,265,132,3244032
+synthetic_2,snapkv,0.7," The patient was started on a course of antibiotics, likely a combination of a fluoroquinolone",0.0,0.8556931018829346,265,79,1941504
+synthetic_2,domain_aware,0.3, Aspirin 80 mg daily.,0.5,0.5220019817352295,265,186,4571136
+synthetic_2,domain_aware,0.5, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8350310325622559,265,132,3244032
+synthetic_2,domain_aware,0.7, Aspirin was started at 75 mg daily. The patient was started on aspirin to,0.22222222222222224,0.831334114074707,265,80,1966080
+synthetic_3,oracle,0.0, Aspirin 81 mg daily.,0.75,0.5187010765075684,261,261,6414336
+synthetic_3,random,0.3, Aspirin 81 mg daily was started. The dose was 81 mg daily.,0.5,0.8330190181732178,261,182,4472832
+synthetic_3,random,0.5," Started Aspirin, 81 mg elevated. No prior similar episodes. What occurred for the",0.23529411764705882,0.8362078666687012,261,130,3194880
+synthetic_3,random,0.7, 69 years medication was started and at what dose. Answer: 69 years medication was,0.0,0.8270649909973145,261,78,1916928
+synthetic_3,knorm,0.3, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8398640155792236,261,182,4472832
+synthetic_3,knorm,0.5, Aspirin 80 mg daily. Aspirin 80 mg daily. Aspir,0.30769230769230765,0.8280420303344727,261,130,3194880
+synthetic_3,knorm,0.7, Aspirin 75 mg daily. The patient was started on aspirin 75 mg,0.25,0.8279368877410889,261,78,1916928
+synthetic_3,snapkv,0.3, Aspirin 81 mg daily. The patient was started on aspirin 81 mg,0.375,0.8414781093597412,261,182,4472832
+synthetic_3,snapkv,0.5, Aspirin was started at 75 mg daily. The patient is a 69-year,0.25,0.8357970714569092,261,130,3194880
+synthetic_3,snapkv,0.7, The patient was started on aspirin and was prescribed 75 mg of aspirin daily. The,0.2105263157894737,0.8363180160522461,261,78,1916928
+synthetic_3,domain_aware,0.3, Aspirin 80 mg daily.,0.5,0.5219070911407471,261,183,4497408
+synthetic_3,domain_aware,0.5, Aspirin 80 mg daily.,0.5,0.5153732299804688,261,130,3194880
+synthetic_3,domain_aware,0.7, Aspirin 75 mg daily. The patient was started on aspirin 75 mg,0.25,0.8282511234283447,261,78,1916928
+synthetic_4,oracle,0.0, Lisinopril 10 mg daily.,0.75,0.5547940731048584,271,271,6660096
+synthetic_4,random,0.3, Lisinopril 10 mg daily. Monitor closely. The patient is a 65,0.39999999999999997,0.8470089435577393,271,189,4644864
+synthetic_4,random,0.5," Lisinopril 10 mg daily.
+
+What Is The Dose?
+Dose: ",0.46153846153846156,0.83207106590271,271,135,3317760
+synthetic_4,random,0.7, Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer Answer,0.0,0.8297553062438965,271,81,1990656
+synthetic_4,knorm,0.3, Lisinopril 1 mg daily.,0.5,0.5260782241821289,271,189,4644864
+synthetic_4,knorm,0.5, Lisinopril 40 mg daily. Lisinopril 40 mg daily.,0.3333333333333333,0.8509008884429932,271,135,3317760
+synthetic_4,knorm,0.7, Lisinopril 40 mg daily. Lisinopril 40 mg daily.,0.3333333333333333,0.8501632213592529,271,81,1990656
+synthetic_4,snapkv,0.3, Lisinopril 10 mg daily. The patient was started on lisinopril ,0.4285714285714285,0.8477540016174316,271,189,4644864
+synthetic_4,snapkv,0.5, The patient was started on lisinopril (a medication used to treat high blood pressure and heart,0.1,0.8430259227752686,271,135,3317760
+synthetic_4,snapkv,0.7," The patient was started on warfarin, a blood thinner, at a dose of 1.",0.0,0.8453130722045898,271,81,1990656
+synthetic_4,domain_aware,0.3, Lisinopril 10 mg daily.,0.75,0.5621809959411621,271,190,4669440
+synthetic_4,domain_aware,0.5, Lisinopril 10 mg daily.,0.75,0.5608730316162109,271,136,3342336
+synthetic_4,domain_aware,0.7, The patient was started on lisinopril 40 mg daily. The patient was started on,0.22222222222222224,0.8360791206359863,271,81,1990656
+synthetic_5,oracle,0.0, Lisinopril 10 mg daily. The patient was started on lisinopril ,0.4285714285714285,0.8535380363464355,271,271,6660096
+synthetic_5,random,0.3, Lisinopril 100 100 100 100,0.22222222222222224,0.8374249935150146,271,189,4644864
+synthetic_5,random,0.5, Patient is a 70-year-old female presenting with fever and cough for the past 2 days,0.0,0.8314580917358398,271,135,3317760
+synthetic_5,random,0.7, Started and used and used.,0.0,0.42077207565307617,271,81,1990656
+synthetic_5,knorm,0.3, Lisinopril 1 mg daily. The patient was started on lisinopril 1,0.26666666666666666,0.859389066696167,271,189,4644864
+synthetic_5,knorm,0.5, Lisinopril 40 mg daily. Lisinopril 40 mg daily.,0.3333333333333333,0.8400840759277344,271,135,3317760
+synthetic_5,knorm,0.7, The patient was started on lisinopril 40 mg daily. The patient was started on,0.22222222222222224,0.8632490634918213,271,81,1990656
+synthetic_5,snapkv,0.3, Lisinopril 10 mg daily. The patient was started on lisinopril ,0.4285714285714285,0.8466300964355469,271,189,4644864
+synthetic_5,snapkv,0.5, The patient was started on lisinopril (lisinopril) at a dose of ,0.13333333333333333,0.839522123336792,271,135,3317760
+synthetic_5,snapkv,0.7, The patient was started on antibiotics for the acute appendicitis. The patient was started on antibiotics for,0.0,0.8473901748657227,271,81,1990656
+synthetic_5,domain_aware,0.3, Lisinopril 1 mg daily. The patient was started on lisinopril 1,0.26666666666666666,0.8496348857879639,271,190,4669440
+synthetic_5,domain_aware,0.5, Lisinopril 10 mg daily.,0.75,0.5532751083374023,271,136,3342336
+synthetic_5,domain_aware,0.7, The patient was started on lisinopril 40 mg daily. The patient was started on,0.22222222222222224,0.8648531436920166,271,81,1990656
+synthetic_6,oracle,0.0, Aspirin 81 mg daily.,0.75,0.5256161689758301,265,265,6512640
+synthetic_6,random,0.3, Aspirin 81 mg was started. The patient was started on aspirin. The patient,0.3529411764705882,0.8587241172790527,265,185,4546560
+synthetic_6,random,0.5," What medication was started and at what dose?
+Answer: What medication was started and at what dose?
+",0.0,0.8293020725250244,265,132,3244032
+synthetic_6,random,0.7, Chest pain for the past 2 days for the 70-year-old presenting with a 7,0.0,0.8438229560852051,265,79,1941504
+synthetic_6,knorm,0.3, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8391549587249756,265,185,4546560
+synthetic_6,knorm,0.5, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8267881870269775,265,132,3244032
+synthetic_6,knorm,0.7, Aspirin 75 mg daily. The patient was started on aspirin 75 mg,0.25,0.8256528377532959,265,79,1941504
+synthetic_6,snapkv,0.3, Aspirin 81 mg daily. The patient was started on aspirin 81 mg,0.375,0.8447740077972412,265,185,4546560
+synthetic_6,snapkv,0.5, The patient was started on aspirin (aspirin) at a dose of 75 mg,0.23529411764705882,0.8378481864929199,265,132,3244032
+synthetic_6,snapkv,0.7," The patient was started on warfarin, a blood thinner, at a dose of 10",0.0,0.8602142333984375,265,79,1941504
+synthetic_6,domain_aware,0.3, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8603701591491699,265,186,4571136
+synthetic_6,domain_aware,0.5, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8333871364593506,265,132,3244032
+synthetic_6,domain_aware,0.7, Aspirin 75 mg daily. The patient was started on aspirin 75 mg,0.25,0.8284621238708496,265,80,1966080
+synthetic_7,oracle,0.0, Metformin 500 mg twice daily.,0.8000000000000002,0.584125280380249,269,269,6610944
+synthetic_7,random,0.3, Metformin 500 mg 2 times daily. The patient is a 56,0.37499999999999994,0.8356130123138428,269,188,4620288
+synthetic_7,random,0.5, Metazoline (mexiletin) was started and at 500 mg twice daily,0.5333333333333333,0.8411810398101807,269,134,3293184
+synthetic_7,random,0.7," Metformin is started and metformin is met.
+Answer: Metformin is started and",0.11764705882352941,0.8451180458068848,269,80,1966080
+synthetic_7,knorm,0.3, Metformin 500 mg twice daily.,0.8000000000000002,0.5823781490325928,269,188,4620288
+synthetic_7,knorm,0.5, Metformin 500 mg twice daily. Metformin 500 mg twice,0.5714285714285714,0.8344528675079346,269,134,3293184
+synthetic_7,knorm,0.7, Metformin 500 mg orally twice daily. Metformin 500 mg,0.5714285714285714,0.8294451236724854,269,80,1966080
+synthetic_7,snapkv,0.3, Metformin 500 mg twice daily. The patient was started on metformin ,0.5000000000000001,0.8666729927062988,269,188,4620288
+synthetic_7,snapkv,0.5," The patient was started on metformin, which is a medication used to lower blood sugar levels.",0.0,0.8676660060882568,269,134,3293184
+synthetic_7,snapkv,0.7, The patient was started on aspirin and clopidogrel. The patient was started on aspirin,0.0,0.8687210083007812,269,80,1966080
+synthetic_7,domain_aware,0.3, Metformin 500 mg twice daily.,0.8000000000000002,0.5840849876403809,269,188,4620288
+synthetic_7,domain_aware,0.5, Metformin 500 mg twice daily.,0.8000000000000002,0.5887811183929443,269,134,3293184
+synthetic_7,domain_aware,0.7, Metformin 500 mg daily. Metformin 500 mg daily.,0.4615384615384615,0.8312942981719971,269,81,1990656
+synthetic_8,oracle,0.0, Aspirin 81 mg daily.,0.75,0.5157310962677002,264,264,6488064
+synthetic_8,random,0.3, Aspirin 81 mg daily. Multivitamin daily. The patient's vital signs are,0.39999999999999997,0.8311929702758789,264,184,4521984
+synthetic_8,random,0.5, Answer: Answer: Answer: Answer: Answer: Answer: Answer: Answer: Answer: Answer:,0.0,0.8387908935546875,264,132,3244032
+synthetic_8,random,0.7," Patient: 50-year-old.
+Allergies: Patient: 50-year-old.
+",0.0,0.8432328701019287,264,79,1941504
+synthetic_8,knorm,0.3, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8317787647247314,264,184,4521984
+synthetic_8,knorm,0.5, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8363950252532959,264,132,3244032
+synthetic_8,knorm,0.7, Aspirin 75 mg daily. The patient was started on aspirin 75 mg,0.25,0.8280048370361328,264,79,1941504
+synthetic_8,snapkv,0.3, Aspirin 81 mg daily.,0.75,0.5225269794464111,264,184,4521984
+synthetic_8,snapkv,0.5, The patient was started on aspirin (aspirin) at a dose of 75 mg,0.23529411764705882,0.8360309600830078,264,132,3244032
+synthetic_8,snapkv,0.7," The patient was started on warfarin, a blood thinner, at a dose of 1.",0.0,0.8514959812164307,264,79,1941504
+synthetic_8,domain_aware,0.3, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8546450138092041,264,185,4546560
+synthetic_8,domain_aware,0.5, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8880057334899902,264,132,3244032
+synthetic_8,domain_aware,0.7, Aspirin was started at 75 mg daily. The patient was started on aspirin ,0.23529411764705882,0.8616170883178711,264,79,1941504
+synthetic_9,oracle,0.0, Heparin 5000 units subcutaneously. Multivitamin daily. The medication,0.5,0.8678460121154785,273,273,6709248
+synthetic_9,random,0.3, Heparin was started at 5000 units subcutaneously and at a daily dose,0.5,0.8689401149749756,273,191,4694016
+synthetic_9,random,0.5, Heparin 500 units subcutaneously subcutaneously subcutaneously subcutaneously,0.5454545454545454,0.8495008945465088,273,136,3342336
+synthetic_9,random,0.7," Cough is the diagnosis.
+Cough is the diagnosis.
+Cough is the diagnosis.
+Cough",0.0,0.8332138061523438,273,81,1990656
+synthetic_9,knorm,0.3, Heparin 500 units subcutaneously. The patient was started on heparin,0.28571428571428575,0.8360099792480469,273,191,4694016
+synthetic_9,knorm,0.5, The patient was started on heparin subcutaneously (subcutaneously) at a dose of,0.25,0.833078145980835,273,136,3342336
+synthetic_9,knorm,0.7, The patient was started on a combination of insulin and metformin. The patient was started on a,0.0,0.8367726802825928,273,81,1990656
+synthetic_9,snapkv,0.3, Heparin 500 mg subcutaneous. The patient was started on heparin,0.14285714285714288,0.881127119064331,273,191,4694016
+synthetic_9,snapkv,0.5," The patient was started on the medication, which was a 500 mg oral dose of insulin",0.0,0.879878044128418,273,136,3342336
+synthetic_9,snapkv,0.7," The patient was started on insulin therapy, and the dose was 0.5 units per kilogram",0.10526315789473685,0.8419570922851562,273,81,1990656
+synthetic_9,domain_aware,0.3, Heparin 500 units subcutaneously. The patient was started with heparin,0.28571428571428575,0.8384761810302734,273,191,4694016
+synthetic_9,domain_aware,0.5, Heparin 500 units subcutaneously. The patient was started on heparin,0.28571428571428575,0.849510908126831,273,136,3342336
+synthetic_9,domain_aware,0.7, The patient was started on heparin 1000 units IV bolus and 1,0.25,0.8322288990020752,273,82,2015232
+synthetic_10,oracle,0.0, Heparin 5000 units subcutaneously. Multivitamin daily. The medication,0.5,0.8460569381713867,276,276,6782976
+synthetic_10,random,0.3, Heparin 5000 units subcutaneously was started and was administered at a dose,0.5,0.8482511043548584,276,193,4743168
+synthetic_10,random,0.5, Answer: Answer: Answer: Answer: Answer: Answer: Answer: Answer: Answer: Answer:,0.0,0.8315420150756836,276,138,3391488
+synthetic_10,random,0.7," H4.
+Dose of
+Question of
+8.
+8.
+8.
+8.
+8.
+",0.0,0.8398687839508057,276,82,2015232
+synthetic_10,knorm,0.3, Heparin 500 units subcutaneously. The patient was started on heparin,0.28571428571428575,0.8629307746887207,276,193,4743168
+synthetic_10,knorm,0.5, The patient was started on heparin 500 units subcutaneously. The dose was,0.25,0.8376400470733643,276,138,3391488
+synthetic_10,knorm,0.7," The patient was started on a combination of insulin and oral hypoglycemic agents, including met",0.0,0.8589379787445068,276,82,2015232
+synthetic_10,snapkv,0.3, Heparin 500 mg subcutaneous. The patient was started on heparin,0.14285714285714288,0.8567900657653809,276,193,4743168
+synthetic_10,snapkv,0.5," The patient was started on the medication, which was a 500 mg dose of acetamin",0.0,0.8401730060577393,276,138,3391488
+synthetic_10,snapkv,0.7," The patient was started on insulin therapy, and the dose was 0.5 units per kilogram",0.10526315789473685,0.83669114112854,276,82,2015232
+synthetic_10,domain_aware,0.3, Heparin 500 units subcutaneously. The patient was started with heparin,0.28571428571428575,0.8495800495147705,276,193,4743168
+synthetic_10,domain_aware,0.5, Heparin 500 units subcutaneously. The patient was started on heparin,0.28571428571428575,0.8390908241271973,276,138,3391488
+synthetic_10,domain_aware,0.7, The patient was started on heparin 1000 units IV bolus and 1,0.25,0.837550163269043,276,83,2039808
+synthetic_11,oracle,0.0, Heparin 5000 units subcutaneously. Multivitamin daily. The medication,0.5,0.8658847808837891,274,274,6733824
+synthetic_11,random,0.3, Heparin 500 units subcutaneously. The patient is a 73-year,0.30769230769230765,0.8371760845184326,274,191,4694016
+synthetic_11,random,0.5," BP 98/98, HR 92, BP 138, HR",0.0,0.8378071784973145,274,137,3366912
+synthetic_11,random,0.7," Hepar 5 subcutaneous.
+Dose: 50 drops.
+Dose: H",0.0,0.8323547840118408,274,82,2015232
+synthetic_11,knorm,0.3, Heparin 500 units subcutaneously. The patient was started on heparin,0.28571428571428575,0.836245059967041,274,191,4694016
+synthetic_11,knorm,0.5, The patient was started on heparin 500 units subcutaneously. The dose was,0.25,0.8388516902923584,274,137,3366912
+synthetic_11,knorm,0.7, The patient was started on aspirin and clopidogrel. The patient was started on aspirin,0.0,0.8400681018829346,274,82,2015232
+synthetic_11,snapkv,0.3, Heparin 1000 units daily. The patient was started on heparin ,0.28571428571428575,0.8451478481292725,274,191,4694016
+synthetic_11,snapkv,0.5," The patient was started on the medication ""heparin"" and the dose was 100",0.0,0.8503439426422119,274,137,3366912
+synthetic_11,snapkv,0.7, The patient was started on aspirin for the prevention of thrombosis. The dose was 1,0.0,0.842642068862915,274,82,2015232
+synthetic_11,domain_aware,0.3, Heparin 500 units subcutaneously. The patient was started with heparin,0.28571428571428575,0.8392419815063477,274,192,4718592
+synthetic_11,domain_aware,0.5, Heparin 500 units subcutaneously. The patient was started on heparin,0.28571428571428575,0.8441107273101807,274,137,3366912
+synthetic_11,domain_aware,0.7, The patient was started on heparin 1000 units IV bolus and 1,0.25,0.8388810157775879,274,82,2015232
+synthetic_12,oracle,0.0, Metformin 500 mg twice daily.,0.8000000000000002,0.587601900100708,273,273,6709248
+synthetic_12,random,0.3, Metformin 500 mg twice daily.,0.8000000000000002,0.5820059776306152,273,191,4694016
+synthetic_12,random,0.5, Metformin 500 mg twice daily was started and at what dose was 50,0.5555555555555556,0.832772970199585,273,136,3342336
+synthetic_12,random,0.7," The patient is a 5-year-old.
+The patient is a 5-year-old.
+The patient",0.0,0.8302750587463379,273,81,1990656
+synthetic_12,knorm,0.3, Metformin 500 mg twice daily.,0.8000000000000002,0.5815627574920654,273,191,4694016
+synthetic_12,knorm,0.5, Metronidazole 1000 mg orally twice daily. Metronidazole 1,0.3076923076923077,0.8361320495605469,273,136,3342336
+synthetic_12,knorm,0.7, Metronidazole 1000 mg orally twice daily. Metronidazole 1,0.3076923076923077,0.8359789848327637,273,81,1990656
+synthetic_12,snapkv,0.3, Metformin 500 mg twice daily. The patient was started on metformin ,0.5000000000000001,0.8431820869445801,273,191,4694016
+synthetic_12,snapkv,0.5," The patient was started on metformin, which is a medication used to treat diabetes. The dose",0.0,0.8471992015838623,273,136,3342336
+synthetic_12,snapkv,0.7," The patient was started on a course of antibiotics, likely a combination of a fluoroquinolone",0.0,0.8798298835754395,273,81,1990656
+synthetic_12,domain_aware,0.3, Metformin 500 mg twice daily.,0.8000000000000002,0.6172399520874023,273,191,4694016
+synthetic_12,domain_aware,0.5, Metformin 500 mg twice daily.,0.8000000000000002,0.5835731029510498,273,136,3342336
+synthetic_12,domain_aware,0.7, Metronidazole 100 mg orally every 8 hours for 5 days. The,0.12500000000000003,0.8441789150238037,273,82,2015232
+synthetic_13,oracle,0.0, Aspirin 81 mg daily.,0.75,0.5307269096374512,267,267,6561792
+synthetic_13,random,0.3," Aspirin 81 mg daily
+The patient started and at the dose of aspirin was",0.4444444444444445,0.8337829113006592,267,186,4571136
+synthetic_13,random,0.5, Aspirin 81 mg daily.,0.75,0.51715087890625,267,133,3268608
+synthetic_13,random,0.7, Aspirin 81 mg/u/l. Based on aspirin 81 mg/u/l,0.3333333333333333,0.8488872051239014,267,80,1966080
+synthetic_13,knorm,0.3, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8535010814666748,267,186,4571136
+synthetic_13,knorm,0.5, Aspirin 80 mg daily. Aspirin 80 mg daily. Aspir,0.30769230769230765,0.8379359245300293,267,133,3268608
+synthetic_13,knorm,0.7, Aspirin 75 mg daily. The patient was started on aspirin 75 mg,0.25,0.8353049755096436,267,80,1966080
+synthetic_13,snapkv,0.3, Aspirin 81 mg daily. The patient was started on aspirin 81 mg,0.375,0.8480942249298096,267,186,4571136
+synthetic_13,snapkv,0.5, The patient was started on aspirin (aspirin) at a dose of 75 mg,0.23529411764705882,0.8415517807006836,267,133,3268608
+synthetic_13,snapkv,0.7, The patient was started on aspirin and was prescribed 75 mg of aspirin daily. The,0.2105263157894737,0.8415718078613281,267,80,1966080
+synthetic_13,domain_aware,0.3, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8444638252258301,267,187,4595712
+synthetic_13,domain_aware,0.5, Aspirin 80 mg daily.,0.5,0.5193557739257812,267,134,3293184
+synthetic_13,domain_aware,0.7, Aspirin 75 mg daily. The patient was started on aspirin 75 mg,0.25,0.8401520252227783,267,80,1966080
+synthetic_14,oracle,0.0, Atorvastatin 40 mg nightly.,0.75,0.5858619213104248,269,269,6610944
+synthetic_14,random,0.3, Atorvastatin 40 mg was started and the dose was 40 mg daily,0.375,0.8825790882110596,269,188,4620288
+synthetic_14,random,0.5," Atorvinda 100 mg
+Explanation: Atorvinda 100",0.2,0.8707149028778076,269,134,3293184
+synthetic_14,random,0.7," 44-year-old
+44-year-old
+44-year-old
+44-year-old",0.0,1.1592211723327637,269,80,1966080
+synthetic_14,knorm,0.3, Atorvastatin 4 mg nightly. The patient was started on atorvastatin,0.28571428571428575,0.8601231575012207,269,188,4620288
+synthetic_14,knorm,0.5, Atorvastatin 10 mg daily. The patient was started on atorvast,0.28571428571428575,0.8435230255126953,269,134,3293184
+synthetic_14,knorm,0.7," At the time of the chief complaint, the patient was on atorvastatin 40",0.23529411764705882,0.8561990261077881,269,80,1966080
+synthetic_14,snapkv,0.3, Atorvastatin 40 mg nightly. The patient was started on atorvast,0.4285714285714285,0.8717021942138672,269,188,4620288
+synthetic_14,snapkv,0.5, The patient was started on a medication regimen of 10 mg of amoxicillin and 1,0.10526315789473685,0.8502039909362793,269,134,3293184
+synthetic_14,snapkv,0.7, The patient was started on antibiotics for acute appendicitis. The patient was prescribed 750,0.0,0.8667929172515869,269,80,1966080
+synthetic_14,domain_aware,0.3, Atorvastatin 4 mg nightly.,0.5,0.5698511600494385,269,188,4620288
+synthetic_14,domain_aware,0.5, Atorvastatin 10 mg nightly. The patient was started on atorvast,0.28571428571428575,0.8353378772735596,269,134,3293184
+synthetic_14,domain_aware,0.7, The patient was started on atorvastatin 40 mg daily. The patient was started,0.3529411764705882,0.8397121429443359,269,81,1990656
+synthetic_15,oracle,0.0, Atorvastatin 40 mg nightly.,0.75,0.6084628105163574,276,276,6782976
+synthetic_15,random,0.3, Atorvastatin 40 mg nightly.,0.75,0.5943691730499268,276,193,4743168
+synthetic_15,random,0.5, Shortness of breath. Shortness of breath. Shortness of breath. Shortness of breath.,0.0,0.8373658657073975,276,138,3391488
+synthetic_15,random,0.7," The patient is a 20-year-old male.
+The patient is a 20-year old",0.0,0.8370048999786377,276,82,2015232
+synthetic_15,knorm,0.3, Atorvastatin 4 mg nightly. Multivitamin daily. The patient was started on,0.26666666666666666,0.8386189937591553,276,193,4743168
+synthetic_15,knorm,0.5, Atorvastatin 10 mg daily. The patient was started on atorvast,0.28571428571428575,0.8381149768829346,276,138,3391488
+synthetic_15,knorm,0.7," At the time of presentation, the patient was started on atorvastatin 40 mg",0.3529411764705882,0.8554661273956299,276,82,2015232
+synthetic_15,snapkv,0.3, Atorvastatin 40 mg nightly. The patient was started on atorvast,0.4285714285714285,0.8503689765930176,276,193,4743168
+synthetic_15,snapkv,0.5," The patient was started on a course of antibiotics to treat the suspected infection, and the dose was ",0.0,0.8395977020263672,276,138,3391488
+synthetic_15,snapkv,0.7, The patient was started on antibiotics for the acute appendicitis. The patient was started on antibiotics for,0.0,0.8469128608703613,276,82,2015232
+synthetic_15,domain_aware,0.3, Atorvastatin 4 mg nightly.,0.5,0.5533177852630615,276,193,4743168
+synthetic_15,domain_aware,0.5, Atorvastatin 10 mg nightly. The patient was started on atorvast,0.28571428571428575,0.8377799987792969,276,138,3391488
+synthetic_15,domain_aware,0.7, Atorvastatin 20 mg daily. The patient was started on atorvast,0.28571428571428575,0.8648257255554199,276,83,2039808
+synthetic_16,oracle,0.0, Lisinopril 10 mg daily.,0.75,0.5560660362243652,264,264,6488064
+synthetic_16,random,0.3," Lisopril 10 mg daily
+The patient's last known medication was lisinopril",0.5333333333333333,0.8318440914154053,264,184,4521984
+synthetic_16,random,0.5," Lisinopril 10 mg daily
+Answer: Lisinopril 10 mg",0.6666666666666666,0.8308701515197754,264,132,3244032
+synthetic_16,random,0.7," Patient was a 6 answered.
+Answer: Patient was a 6 answered.
+Working Of Of Of",0.0,0.8577079772949219,264,79,1941504
+synthetic_16,knorm,0.3, Lisinopril 1 mg daily. The patient was started on lisinopril 1,0.26666666666666666,0.8460559844970703,264,184,4521984
+synthetic_16,knorm,0.5, Lisinopril 40 mg daily. Lisinopril 40 mg daily.,0.3333333333333333,0.8267371654510498,264,132,3244032
+synthetic_16,knorm,0.7, Lisinopril 40 mg daily. Lisinopril 40 mg daily.,0.3333333333333333,0.8262991905212402,264,79,1941504
+synthetic_16,snapkv,0.3, Lisinopril 10 mg daily.,0.75,0.5521810054779053,264,184,4521984
+synthetic_16,snapkv,0.5, The patient was started on lisinopril (aACE inhibitor) at a dose of 4,0.11764705882352941,0.8615219593048096,264,132,3244032
+synthetic_16,snapkv,0.7, The patient was started on aspirin and clopidogrel. The patient was started on aspirin,0.0,0.8630766868591309,264,79,1941504
+synthetic_16,domain_aware,0.3, Lisinopril 10 mg daily. The patient was started on lisinopril ,0.4285714285714285,0.8465638160705566,264,185,4546560
+synthetic_16,domain_aware,0.5, Lisinopril 10 mg daily. The patient was started on lisinopril ,0.4285714285714285,0.8223481178283691,264,132,3244032
+synthetic_16,domain_aware,0.7, The patient was started on lisinopril 40 mg daily. The patient was started on,0.22222222222222224,0.8205728530883789,264,79,1941504
+synthetic_17,oracle,0.0, Aspirin 81 mg daily.,0.75,0.519813060760498,271,271,6660096
+synthetic_17,random,0.3," Started aspirin 81 mg daily at what dose is not specified.
+Answer: Started aspirin",0.4444444444444445,0.8280830383300781,271,189,4644864
+synthetic_17,random,0.5," Started and at what dose?
+Answer: Started and at what dose?
+Answer: Started and at what",0.0,0.8270859718322754,271,135,3317760
+synthetic_17,random,0.7," Aspirin 138
+
+The patient is a 66-year-old female. As",0.15384615384615383,0.8234748840332031,271,81,1990656
+synthetic_17,knorm,0.3, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8260951042175293,271,189,4644864
+synthetic_17,knorm,0.5, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8484911918640137,271,135,3317760
+synthetic_17,knorm,0.7, Aspirin 75 mg daily. The patient was started on aspirin 75 mg,0.25,0.8513338565826416,271,81,1990656
+synthetic_17,snapkv,0.3, Aspirin 81 mg daily. The patient was started on aspirin 81 mg,0.375,0.8415558338165283,271,189,4644864
+synthetic_17,snapkv,0.5, The patient was started on aspirin and the dose was 75 mg orally every 4 hours,0.2,0.8470232486724854,271,135,3317760
+synthetic_17,snapkv,0.7," The patient was started on a course of antibiotics, including ceftriaxone and amoxic",0.0,0.83648681640625,271,81,1990656
+synthetic_17,domain_aware,0.3, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8532869815826416,271,190,4669440
+synthetic_17,domain_aware,0.5, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8480010032653809,271,136,3342336
+synthetic_17,domain_aware,0.7, Aspirin 75 mg daily. The patient was started on aspirin 75 mg,0.25,0.8418292999267578,271,81,1990656
+synthetic_18,oracle,0.0, Lisinopril 10 mg daily.,0.75,0.5552349090576172,269,269,6610944
+synthetic_18,random,0.3," Lisopril 10 mg daily
+The patient was prescribed lisopril 10 mg",0.39999999999999997,0.8398008346557617,269,188,4620288
+synthetic_18,random,0.5," Lisinopril 10 mg daily
+Lisinopril 10 mg daily",0.6666666666666666,0.8319361209869385,269,134,3293184
+synthetic_18,random,0.7," Hype.
+Assessment: Not concerning for for for for for for for for for for for for",0.0,0.8289039134979248,269,80,1966080
+synthetic_18,knorm,0.3, Lisinopril 10 mg daily.,0.75,0.5479199886322021,269,188,4620288
+synthetic_18,knorm,0.5, Lisinopril 40 mg daily. Lisinopril 40 mg daily.,0.3333333333333333,0.8412837982177734,269,134,3293184
+synthetic_18,knorm,0.7, The patient was started on lisinopril 40 mg daily. The patient was started on,0.22222222222222224,0.8506448268890381,269,80,1966080
+synthetic_18,snapkv,0.3, Lisinopril 10 mg daily. The patient was started on lisinopril ,0.4285714285714285,0.8606579303741455,269,188,4620288
+synthetic_18,snapkv,0.5, The patient was started on lisinopril (a medication used to treat high blood pressure) at,0.10526315789473685,0.8459000587463379,269,134,3293184
+synthetic_18,snapkv,0.7," The patient was started on a course of antibiotics, likely a combination of a fluoroquinolone",0.0,0.840886116027832,269,80,1966080
+synthetic_18,domain_aware,0.3, Lisinopril 10 mg daily.,0.75,0.55324387550354,269,188,4620288
+synthetic_18,domain_aware,0.5, Lisinopril 10 mg daily.,0.75,0.5531060695648193,269,134,3293184
+synthetic_18,domain_aware,0.7, The patient was started on lisinopril 10 mg daily. The patient was started on,0.3333333333333333,0.8436920642852783,269,81,1990656
+synthetic_19,oracle,0.0, Aspirin 81 mg daily.,0.75,0.5239360332489014,271,271,6660096
+synthetic_19,random,0.3," Aspirin 81 mg daily
+Dose: 81 mg daily
+Shortage",0.6153846153846153,0.8342041969299316,271,189,4644864
+synthetic_19,random,0.5," Multivitamin 81 mg daily.
+
+What is the patient's vital signs at this time?
+",0.23529411764705882,0.8392529487609863,271,135,3317760
+synthetic_19,random,0.7," Shortness of breath for the past 2 days with no prior similar symptoms.
+
+Working Diagnosis:
+Short",0.0,0.8310098648071289,271,81,1990656
+synthetic_19,knorm,0.3, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.837853193283081,271,189,4644864
+synthetic_19,knorm,0.5, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8510169982910156,271,135,3317760
+synthetic_19,knorm,0.7, Aspirin 75 mg daily. Aspirin 75 mg daily. Aspir,0.30769230769230765,0.8359849452972412,271,81,1990656
+synthetic_19,snapkv,0.3, Aspirin 81 mg daily. The patient was started on aspirin 81 mg,0.375,0.8429889678955078,271,189,4644864
+synthetic_19,snapkv,0.5, The patient was started on aspirin and the dose was 75 mg orally every 6 hours,0.2,0.8435652256011963,271,135,3317760
+synthetic_19,snapkv,0.7," The patient was started on a course of antibiotics, likely a combination of a fluoroquinolone",0.0,0.841576099395752,271,81,1990656
+synthetic_19,domain_aware,0.3, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.836529016494751,271,190,4669440
+synthetic_19,domain_aware,0.5, Aspirin 80 mg daily. The patient was started on aspirin 80 mg,0.25,0.8498239517211914,271,136,3342336
+synthetic_19,domain_aware,0.7, Aspirin 75 mg daily. The patient was started on aspirin 75 mg,0.25,0.836575984954834,271,81,1990656
+pubmedqa_21645374,oracle,0.0," Yes, mitochondria play a role in remodelling lace plant leaves during programmed cell death. Mit",1.0,0.9006118774414062,370,370,9093120
+pubmedqa_21645374,random,0.3," Yes, mitochondria play a role in remodelling lace plant leaves during programmed cell death. The",1.0,0.8997712135314941,370,259,6365184
+pubmedqa_21645374,random,0.5," Yes, it does. The lace plant leaves of A. madagascariensis consist of l",1.0,0.8875241279602051,370,185,4546560
+pubmedqa_21645374,random,0.7, The following paper paper paper paper paper paper paper paper lace leaves with with with with with with with with,0.0,0.8849401473999023,370,111,2727936
+pubmedqa_21645374,knorm,0.3," Yes, mitochondria play a role in remodelling lace plant leaves during programmed cell death. The",1.0,0.9082257747650146,370,259,6365184
+pubmedqa_21645374,knorm,0.5," Yes, mitochondria play a role in remodelling lace plant leaves during programmed cell death. The",1.0,0.8873567581176758,370,185,4546560
+pubmedqa_21645374,knorm,0.7," Yes, mitochondria play a role in remodelling lace plant leaves during programmed cell death. During",1.0,0.8819570541381836,370,111,2727936
+pubmedqa_21645374,snapkv,0.3," Yes, mitochondria play a role in remodelling lace plant leaves during programmed cell death. The",1.0,0.9050657749176025,370,259,6365184
+pubmedqa_21645374,snapkv,0.5," Yes, mitochondria play a role in remodelling lace plant leaves during programmed cell death. The",1.0,0.8918118476867676,370,185,4546560
+pubmedqa_21645374,snapkv,0.7," Yes, mitochondria play a role in remodelling lace plant leaves during programmed cell death. The",1.0,0.8958289623260498,370,111,2727936
+pubmedqa_21645374,domain_aware,0.3," Yes, mitochondria play a role in remodelling lace plant leaves during programmed cell death. The",1.0,0.9049181938171387,370,259,6365184
+pubmedqa_21645374,domain_aware,0.5," Yes, mitochondria play a role in remodelling lace plant leaves during programmed cell death. The",1.0,0.8963780403137207,370,185,4546560
+pubmedqa_21645374,domain_aware,0.7," Yes, mitochondria play a role in remodelling lace plant leaves during programmed cell death. The",1.0,0.8859150409698486,370,111,2727936
+pubmedqa_16418930,oracle,0.0," Yes
+
+Landolt C and Snellen E acuity: differences in amblyopia?
+Answer:",0.0,0.896125078201294,361,361,8871936
+pubmedqa_16418930,random,0.3," Yes
+Answer: No
+Answer: Yes
+Answer: No
+Answer: Yes
+Answer:",0.0,0.8969330787658691,361,252,6193152
+pubmedqa_16418930,random,0.5," Landolt C and Snellen e acuity: differences in strabismus amblyopia?
+",0.0,0.885357141494751,361,180,4423680
+pubmedqa_16418930,random,0.7," differences in strabismus amblyopia?
+even if if if if if if if if if",0.0,0.8829822540283203,361,108,2654208
+pubmedqa_16418930,knorm,0.3, Landolt C acuity is higher than Snellen E acuity in amblyopia due to str,0.0,0.8939907550811768,361,252,6193152
+pubmedqa_16418930,knorm,0.5, Landolt C and Landolt e acuity are similar in amblyopia. Landolt C ac,0.0,0.890408992767334,361,180,4423680
+pubmedqa_16418930,knorm,0.7, Landolt C and Snellen E acuity: differences in strabismus and amblyopia,0.0,0.8815240859985352,361,108,2654208
+pubmedqa_16418930,snapkv,0.3," Yes
+
+Landolt C and snellen e acuity: differences in amblyopia?
+Answer:",0.0,0.921118974685669,361,252,6193152
+pubmedqa_16418930,snapkv,0.5," Yes
+
+Landolt C and snellen e acuity: differences in amblyopia?
+Answer:",0.0,0.9447731971740723,361,180,4423680
+pubmedqa_16418930,snapkv,0.7, The results of the Landolt C and Snellen e acuity tests were similar in the entire group,0.0,0.9245970249176025,361,108,2654208
+pubmedqa_16418930,domain_aware,0.3," Yes
+Explanation: The results of the study show that the mean decimal values for Landolt C ac",0.0,0.8970859050750732,361,253,6217728
+pubmedqa_16418930,domain_aware,0.5," Yes, the Landolt C and Snellen e acuity differ in strabismus ambly",0.0,0.8911731243133545,361,180,4423680
+pubmedqa_16418930,domain_aware,0.7, Landolt C and Snellen e acuity are similar in the amblyopia of strabism,0.0,0.8876588344573975,361,108,2654208
+pubmedqa_9488747,oracle,0.0," Yes.
+Explanation:
+The case report describes a series of eight infants aged 2 to 15",1.0,0.8582651615142822,235,235,5775360
+pubmedqa_9488747,random,0.3," Syncope during bathing in infants, a pediatric form of water-induced urticaria. Syncope during",0.0,0.8213379383087158,235,164,4030464
+pubmedqa_9488747,random,0.5," The diagnosis of water-induced urticaria in infants is confirmed.
+Case: A 10-month",0.0,0.8358650207519531,235,117,2875392
+pubmedqa_9488747,random,0.7, a difficult and difficult and difficult and difficult and difficult and difficult and difficult and difficult and difficult and difficult,0.0,0.8230040073394775,235,70,1720320
+pubmedqa_9488747,knorm,0.3," Yes. Syncope during bathing in infants, a pediatric form of water-induced urticaria is a",1.0,0.8171780109405518,235,164,4030464
+pubmedqa_9488747,knorm,0.5," Yes. Syncope during bathing in infants, a pediatric form of water-induced urticaria, is",1.0,0.821829080581665,235,117,2875392
+pubmedqa_9488747,knorm,0.7," Yes
+
+The patient was a 10-month-old boy who had been admitted to the hospital with",1.0,0.812269926071167,235,70,1720320
+pubmedqa_9488747,snapkv,0.3," Yes.
+Explanation:
+The answer is ""Yes."" The case report describes a series of infants who experienced",1.0,0.8266160488128662,235,164,4030464
+pubmedqa_9488747,snapkv,0.5," Yes.
+Explanation:
+The answer is ""Yes."" The case report describes a pediatric form of water-induced",1.0,0.8262579441070557,235,117,2875392
+pubmedqa_9488747,snapkv,0.7," Yes.
+Question:
+Is it possible that the infants suffering from water-induced urticaria are also suffering",1.0,0.8272039890289307,235,70,1720320
+pubmedqa_9488747,domain_aware,0.3," Yes. Syncope during bathing in infants, a pediatric form of water-induced urticaria is a",1.0,0.816641092300415,235,164,4030464
+pubmedqa_9488747,domain_aware,0.5," Yes.
+Explanation: The syncope during bathing in infants is a pediatric form of water-induced urtic",1.0,0.8139019012451172,235,118,2899968
+pubmedqa_9488747,domain_aware,0.7," Yes.
+Question:
+What is the most likely cause of the syncope during bathing in infants? Syn",1.0,0.81290602684021,235,71,1744896
+pubmedqa_17208539,oracle,0.0," Yes.
+
+CONCLUSION:
+The long-term outcome of the transanal pull-through is better than that of",0.0,0.8837630748748779,343,343,8429568
+pubmedqa_17208539,random,0.3, The long-term results of the transanal pull-through are equal to those of the transabdominal,0.0,0.8868870735168457,343,240,5898240
+pubmedqa_17208539,random,0.5, Yes. The long-term outcome of the transanal pull-through was similar to that of the transab,0.0,0.8982748985290527,343,171,4202496
+pubmedqa_17208539,random,0.7, The transanal pull-through remains the treatment in the treatment in the treatment in the treatment in the treatment,0.0,0.8931410312652588,343,102,2506752
+pubmedqa_17208539,knorm,0.3," Yes.
+
+Are there any differences in the long-term results of the transanal pull-through compared to the",0.0,0.8850760459899902,343,240,5898240
+pubmedqa_17208539,knorm,0.5," Yes.
+
+Are there any differences in the long-term results of the transanal pull-through compared to the",0.0,0.9012088775634766,343,171,4202496
+pubmedqa_17208539,knorm,0.7," Yes.
+
+Are there any differences in the long-term results of the transanal pull-through and the trans",0.0,0.87288498878479,343,102,2506752
+pubmedqa_17208539,snapkv,0.3," Yes.
+
+CONCLUSION:
+The long-term outcome of the transanal pull-through was significantly better than that",0.0,0.9111311435699463,343,240,5898240
+pubmedqa_17208539,snapkv,0.5," Yes.
+
+Are there any differences in the long-term outcomes between the transanal pull-through and the trans",0.0,0.8864057064056396,343,171,4202496
+pubmedqa_17208539,snapkv,0.7," No
+
+Are the long-term results of the transanal pull-through better than those of the transanal",1.0,0.8760581016540527,343,102,2506752
+pubmedqa_17208539,domain_aware,0.3," Yes
+The long-term results of the transanal pull-through were found to be equal to those of",0.0,0.8872280120849609,343,240,5898240
+pubmedqa_17208539,domain_aware,0.5," No, the long-term results of the transanal pull-through are not equal to those of the trans",1.0,0.8811728954315186,343,172,4227072
+pubmedqa_17208539,domain_aware,0.7," No, the long-term results of the transanal pull-through are not equal to those of the trans",1.0,0.8681759834289551,343,103,2531328
+pubmedqa_10808977,oracle,0.0," Yes.
+
+CONCLUSION:
+Tailored telephone counseling was more effective than tailored print materials in promoting mammography",1.0,0.8666248321533203,296,296,7274496
+pubmedqa_10808977,random,0.3," Yes, tailored interventions increase mammography use among HMO women. Can this intervention increase mammography use",1.0,0.8904600143432617,296,207,5087232
+pubmedqa_10808977,random,0.5," Compared to HMO women, those with HMO women, those with HMO women, those with",0.0,0.8512136936187744,296,148,3637248
+pubmedqa_10808977,random,0.7," Yes.
+Explanation: The study found that tailored telephone materials and print materials were more effective than print materials",1.0,0.8423750400543213,296,88,2162688
+pubmedqa_10808977,knorm,0.3," Yes
+
+Can tailored interventions increase mammography use among HMO women? Yes
+
+Can tailored interventions increase",1.0,0.8536429405212402,296,207,5087232
+pubmedqa_10808977,knorm,0.5," Yes
+
+Can you summarize the findings of the study on the efficacy of telephone counseling for mammography screening",1.0,0.8585810661315918,296,148,3637248
+pubmedqa_10808977,knorm,0.7," Yes.
+Explanation: The randomized controlled trial found that women who received a tailored telephone counseling intervention were more",1.0,0.8446593284606934,296,88,2162688
+pubmedqa_10808977,snapkv,0.3," Yes.
+
+Can tailored interventions increase mammography use among non-HMO women?
+Answer: No.
+
+Can",1.0,0.8584237098693848,296,207,5087232
+pubmedqa_10808977,snapkv,0.5," Yes, the study found that tailored interventions increased mammography use among HMO women. The study found",1.0,0.8540699481964111,296,148,3637248
+pubmedqa_10808977,snapkv,0.7," Yes.
+Question: What is the most likely cause of the increase in mammography use among HMO",1.0,0.8848540782928467,296,88,2162688
+pubmedqa_10808977,domain_aware,0.3," Yes
+Explanation: The study found that women who were randomized to telephone counseling had a higher proportion of",1.0,0.8547067642211914,296,207,5087232
+pubmedqa_10808977,domain_aware,0.5," Yes
+Explanation: The study found that women who were off-schedule during the previous year were more",1.0,0.8454110622406006,296,148,3637248
+pubmedqa_10808977,domain_aware,0.7," Yes.
+Explanation: The study found that women who received tailored interventions (those who received mammography counseling",1.0,0.8636510372161865,296,89,2187264
+pubmedqa_23831910,oracle,0.0, The authors conclude that the use of double balloon enteroscopy (DBE) in a community setting,0.0,0.8883888721466064,325,325,7987200
+pubmedqa_23831910,random,0.3, The results of the study suggest that the use of double balloon enteroscopy is efficacious and safe,0.0,0.8735122680664062,325,227,5578752
+pubmedqa_23831910,random,0.5, The mean time per DBE was 100.7±10.3 minutes with,0.0,0.8842899799346924,325,162,3981312
+pubmedqa_23831910,random,0.7, The answer is to the community is to the community is to the community is to the community is to,0.0,0.8640561103820801,325,97,2383872
+pubmedqa_23831910,knorm,0.3," Yes, it is efficacious and safe in a community setting.
+
+The authors conclude that the use of",1.0,0.871229887008667,325,227,5578752
+pubmedqa_23831910,knorm,0.5," Yes, it is efficacious and safe in a community setting.
+
+The authors conclude that the use of",1.0,0.8839201927185059,325,162,3981312
+pubmedqa_23831910,knorm,0.7," Yes, it is efficacious and safe in a community setting. The authors found that the use of",1.0,0.877047061920166,325,97,2383872
+pubmedqa_23831910,snapkv,0.3, The authors conclude that the use of double balloon enteroscopy (DBE) in a community setting,0.0,0.875744104385376,325,227,5578752
+pubmedqa_23831910,snapkv,0.5, The authors conclude that the use of double balloon enteroscopy (DBE) in a community setting,0.0,0.8676638603210449,325,162,3981312
+pubmedqa_23831910,snapkv,0.7, The authors of this study suggest that double balloon enteroscopy (DBE) is efficacious and,0.0,0.8655800819396973,325,97,2383872
+pubmedqa_23831910,domain_aware,0.3," Yes, it is efficacious and safe in a community setting. The authors note that the use of",1.0,0.868617057800293,325,227,5578752
+pubmedqa_23831910,domain_aware,0.5," Yes, it is efficacious and safe in a community setting. The authors note that the use of",1.0,0.8609120845794678,325,162,3981312
+pubmedqa_23831910,domain_aware,0.7," Yes, it is efficacious and safe in a community setting. The study was conducted in a community",1.0,0.8568930625915527,325,98,2408448
+pubmedqa_26037986,oracle,0.0," Yes.
+
+CONCLUSION:
+The 30-day mortality in emergency laparotomy is 12",0.0,0.8409910202026367,270,270,6635520
+pubmedqa_26037986,random,0.3," The aim of this study was to analyse the 30-day mortality, age-related 30",0.0,0.8327841758728027,270,189,4644864
+pubmedqa_26037986,random,0.5, The area of emergency general surgery laparotomies is the best area to be studied. The,0.0,0.827678918838501,270,135,3317760
+pubmedqa_26037986,random,0.7,::::::::::::::::::::,0.0,0.8269820213317871,270,81,1990656
+pubmedqa_26037986,knorm,0.3," Yes.
+
+CONCLUSION:
+The 30-day mortality, age-related mortality and 1-year mortality",0.0,0.8312809467315674,270,189,4644864
+pubmedqa_26037986,knorm,0.5," Yes.
+
+1. The 30-day mortality was 1.0% (95%",0.0,0.8272278308868408,270,135,3317760
+pubmedqa_26037986,knorm,0.7, 100% 100% 100% 100%,0.0,0.8250789642333984,270,81,1990656
+pubmedqa_26037986,snapkv,0.3, The 30-day mortality in emergency general surgery laparotomies is 14-,0.0,0.840350866317749,270,189,4644864
+pubmedqa_26037986,snapkv,0.5, The results of this study suggest that emergency general surgery laparotomies are associated with a higher,0.0,0.8357479572296143,270,135,3317760
+pubmedqa_26037986,snapkv,0.7, The authors conclude that the mortality rate in emergency general surgery laparotomies is 30,0.0,0.8325228691101074,270,81,1990656
+pubmedqa_26037986,domain_aware,0.3," The 30-day mortality was 12, 4% in those aged<70",0.0,0.8315651416778564,270,189,4644864
+pubmedqa_26037986,domain_aware,0.5, The mortality rate in emergency general surgery laparotomies is 130-day mortality is,0.0,0.8280601501464844,270,135,3317760
+pubmedqa_26037986,domain_aware,0.7, The mortality rate in emergency general surgery laparotomies was 10.5% (,0.0,0.825880765914917,270,81,1990656
+pubmedqa_26852225,oracle,0.0," Yes.
+
+CONCLUSION:
+The CHOPIT model is a more appropriate model for estimating the association between",0.0,0.8632869720458984,306,306,7520256
+pubmedqa_26852225,random,0.3," Yes, adjustment for reporting heterogeneity is necessary in sleep disorders. The CHOPIT model provides two",0.0,0.8486766815185547,306,214,5259264
+pubmedqa_26852225,random,0.5," Yes
+
+The prevalence of sleep disorders in adult Japanese was 50%.
+Is adjustment for reporting",0.0,0.8422191143035889,306,153,3760128
+pubmedqa_26852225,random,0.7, Sleep disorders are reported in the research. The order is reported in the research. Answer. The order,0.0,0.8393402099609375,306,91,2236416
+pubmedqa_26852225,knorm,0.3," Yes
+
+Is adjustment for reporting heterogeneity necessary in energy-related problems?
+Answer: Yes
+
+Is adjustment",0.0,0.846419095993042,306,214,5259264
+pubmedqa_26852225,knorm,0.5," Yes
+
+Is adjustment for reporting heterogeneity necessary in energy-related problems?
+Answer: Yes
+
+Is adjustment",0.0,0.8432052135467529,306,153,3760128
+pubmedqa_26852225,knorm,0.7," Yes
+
+Is adjustment for reporting heterogeneity necessary in sleep disorders? Yes
+
+Is adjustment for reporting heter",0.0,0.8412926197052002,306,91,2236416
+pubmedqa_26852225,snapkv,0.3," Yes.
+
+CONCLUSION:
+The CHOPIT model is a more appropriate model for adjusting for reporting heter",0.0,0.8543140888214111,306,214,5259264
+pubmedqa_26852225,snapkv,0.5," Yes.
+
+CONCLUSION:
+The CHOPIT model is a more appropriate model for adjusting for reporting heter",0.0,0.852247953414917,306,153,3760128
+pubmedqa_26852225,snapkv,0.7," Yes
+
+What is the relationship between anchoring and anchoring bias?
+Answer: The anchoring bias",0.0,0.8483572006225586,306,91,2236416
+pubmedqa_26852225,domain_aware,0.3," Yes
+
+What is the relationship between age, sex, and the number of comorbidities and",0.0,0.8465039730072021,306,214,5259264
+pubmedqa_26852225,domain_aware,0.5," Yes
+
+Is adjustment for reporting heterogeneity necessary in the study of sleep disorders?
+Answer: Yes
+
+",0.0,0.8455629348754883,306,153,3760128
+pubmedqa_26852225,domain_aware,0.7," Yes, it is necessary to adjust for reporting heterogeneity in sleep disorders. The reported data in the",0.0,0.8427712917327881,306,92,2260992
+pubmedqa_17113061,oracle,0.0," Yes
+
+Do mutations causing low HDL-C promote increased carotid intima-media thickness in the",0.0,0.792104959487915,219,219,5382144
+pubmedqa_17113061,random,0.3," Yes
+Answer: No
+Answer: Yes
+Answer: No
+Answer: Yes
+Answer:",0.0,0.7928581237792969,219,153,3760128
+pubmedqa_17113061,random,0.5, Carotid intima-media thickness (cIMT) is a measure of intima-media thickness,0.0,0.7906990051269531,219,109,2678784
+pubmedqa_17113061,random,0.7, Answer: Answer: Answer: Answer: Answer: Answer: Answer: Answer: Answer: Answer:,0.0,0.789736270904541,219,65,1597440
+pubmedqa_17113061,knorm,0.3," Yes
+
+What is the significance of the study?
+The study suggests that mutations in LCAT, ABC",0.0,0.7916309833526611,219,153,3760128
+pubmedqa_17113061,knorm,0.5," Yes
+
+Do mutations causing low HDL-C promote increased atherosclerosis?
+Answer: Yes
+
+Do",0.0,0.7932040691375732,219,109,2678784
+pubmedqa_17113061,knorm,0.7," Yes
+
+Do mutations causing low HDL-C promote increased carotid intima-media thickness?
+Answer",0.0,0.7881481647491455,219,65,1597440
+pubmedqa_17113061,snapkv,0.3," Yes
+
+What is the significance of the study?
+The study suggests that mutations causing low HDL-C",0.0,0.7994859218597412,219,153,3760128
+pubmedqa_17113061,snapkv,0.5," Yes
+
+What is the significance of the study?
+The study suggests that mutations causing low HDL-C",0.0,0.7976748943328857,219,109,2678784
+pubmedqa_17113061,snapkv,0.7," Yes
+
+The authors conclude that the low HDL-C levels in the study population may be associated with",0.0,0.7963762283325195,219,65,1597440
+pubmedqa_17113061,domain_aware,0.3," Yes
+
+Do mutations causing low HDL-C promote increased carotid intima-media thickness in the",0.0,0.7933180332183838,219,153,3760128
+pubmedqa_17113061,domain_aware,0.5," Yes
+
+Do mutations causing low HDL-C promote increased carotid intima-media thickness?
+Answer",0.0,0.7919940948486328,219,110,2703360
+pubmedqa_17113061,domain_aware,0.7," Yes
+
+Do mutations causing low HDL-C promote increased carotid intima-media thickness?
+Answer",0.0,0.789668083190918,219,66,1622016
+pubmedqa_10966337,oracle,0.0, Yes. The short stay ward was developed through reallocation of resources from within the hospital to the short,1.0,0.9716291427612305,503,503,12361728
+pubmedqa_10966337,random,0.3, The short stay ward in a general and academic children's hospital is a useful addition to the emergency service,0.0,0.9663529396057129,503,352,8650752
+pubmedqa_10966337,random,0.5, Yes. The short stay ward is effective in a general and academic children's hospital. The short stay,1.0,0.9616749286651611,503,251,6168576
+pubmedqa_10966337,random,0.7, The usefulness of the hospital service is often discussed in the following terms: 1. 2.,0.0,0.9503848552703857,503,150,3686400
+pubmedqa_10966337,knorm,0.3, Yes. The short stay ward was developed through reallocation of resources from within the hospital to a short,1.0,0.9672513008117676,503,352,8650752
+pubmedqa_10966337,knorm,0.5, Yes. The short stay or 23-hour ward is a useful addition to the emergency service in,1.0,0.9630038738250732,503,251,6168576
+pubmedqa_10966337,knorm,0.7, Yes. The short stay ward was effective in reducing the length of stay of patients admitted to the hospital,1.0,0.9507849216461182,503,150,3686400
+pubmedqa_10966337,snapkv,0.3, Yes. The short stay ward was developed through reallocation of resources from within the hospital to the short,1.0,0.9773790836334229,503,352,8650752
+pubmedqa_10966337,snapkv,0.5, Yes. The short stay ward was developed through reallocation of resources from within the hospital to the short,1.0,0.9729940891265869,503,251,6168576
+pubmedqa_10966337,snapkv,0.7, Yes. The short stay or 23-hour ward in a general and academic children's hospital is,1.0,0.9619231224060059,503,150,3686400
+pubmedqa_10966337,domain_aware,0.3, Yes. The short stay or 23-hour ward in a general and academic children's hospital is,1.0,0.9674391746520996,503,352,8650752
+pubmedqa_10966337,domain_aware,0.5, Yes. The short stay or 23-hour ward in a general and academic children's hospital is,1.0,0.9645540714263916,503,252,6193152
+pubmedqa_10966337,domain_aware,0.7, Yes. The short stay or 23-hour ward is effective in a general and academic children's,1.0,0.9515230655670166,503,151,3710976
+pubmedqa_25432938,oracle,0.0," Yes
+
+Did the law reform reduce traffic fatalities and injuries?
+Answer: Yes
+
+Did the law reform",1.0,0.8390319347381592,277,277,6807552
+pubmedqa_25432938,random,0.3," Yes, the law reform did push police enforcement. The law reform was associated with a 59",1.0,0.828671932220459,277,193,4743168
+pubmedqa_25432938,random,0.5," Yes, the traffic law reform in Chile's traffic law reform in Chile's traffic law reform in Chile",1.0,0.8286318778991699,277,138,3391488
+pubmedqa_25432938,random,0.7, (interaction with new) (new) (new) (new) (new) (new),0.0,0.8246631622314453,277,83,2039808
+pubmedqa_25432938,knorm,0.3," Yes.
+
+Did the reduction of traffic fatalities and injuries during 2000-201",1.0,0.828977108001709,277,193,4743168
+pubmedqa_25432938,knorm,0.5," Yes
+
+Did the police enforcement increase the number of traffic fatalities?
+Answer: Yes
+
+Did the police",1.0,0.8266160488128662,277,138,3391488
+pubmedqa_25432938,knorm,0.7," Yes
+
+Did the police enforcement increase the number of traffic fatalities?
+Answer: Yes
+
+Did the police",1.0,0.8237240314483643,277,83,2039808
+pubmedqa_25432938,snapkv,0.3," Yes
+
+Did the law reform reduce traffic fatalities and injuries?
+Answer: Yes
+
+Did the law reform",1.0,0.8466048240661621,277,193,4743168
+pubmedqa_25432938,snapkv,0.5," Yes
+
+Did the law reform reduce traffic fatalities and injuries?
+Answer: Yes
+
+Did the law reform",1.0,0.8365671634674072,277,138,3391488
+pubmedqa_25432938,snapkv,0.7," Yes
+Explain the reasoning: The reduction in traffic fatalities and severe injuries in Chile's traffic law",1.0,0.833054780960083,277,83,2039808
+pubmedqa_25432938,domain_aware,0.3," Yes
+
+Did the law reform reduce traffic fatalities and severe injuries?
+Answer: Yes
+
+Did the law",1.0,0.8318541049957275,277,194,4767744
+pubmedqa_25432938,domain_aware,0.5," Yes
+Did the law reform reduce traffic fatalities?
+Answer: Yes
+Did the law reform reduce traffic",1.0,0.8271501064300537,277,138,3391488
+pubmedqa_25432938,domain_aware,0.7," Yes
+Did the law reform increase police enforcement?
+Answer: Yes
+Did the law reform decrease police",1.0,0.8264079093933105,277,83,2039808
+pubmedqa_18847643,oracle,0.0, Yes. The incidence of complications using therapeutic anticoagulation in trauma patients is low. The most,0.0,0.8932838439941406,376,376,9240576
+pubmedqa_18847643,random,0.3, Yes. The most common complication was a sudden drop in hemoglobin concentration. The most frequent complication was,0.0,0.8933207988739014,376,263,6463488
+pubmedqa_18847643,random,0.5, Answer: Answer: Answer: Answer: Answer: Answer: Answer: Answer: Answer: Answer:,0.0,0.8784270286560059,376,188,4620288
+pubmedqa_18847643,random,0.7,Answer:Answer:Answer:Answer:Answer:Answer:Answer:Answer:Answer:Answer:,0.0,0.875556230545044,376,112,2752512
+pubmedqa_18847643,knorm,0.3," Yes.
+
+CONCLUSION:
+The incidence of anticoagulation-related complications in trauma patients is high.",0.0,0.8935830593109131,376,263,6463488
+pubmedqa_18847643,knorm,0.5," Yes.
+
+Therapeutic anticoagulation in the trauma patient: is it effective?
+Answer:",0.0,0.8806478977203369,376,188,4620288
+pubmedqa_18847643,knorm,0.7," Yes.
+Therapeutic anticoagulation in the trauma patient: is it safe?
+Answer:",0.0,0.8791208267211914,376,112,2752512
+pubmedqa_18847643,snapkv,0.3, Yes. The incidence of complications using therapeutic anticoagulation in trauma patients is low. The most,0.0,0.902008056640625,376,263,6463488
+pubmedqa_18847643,snapkv,0.5, Yes. The incidence of complications is low and the most common complication is a sudden drop in platelet,0.0,0.8889219760894775,376,188,4620288
+pubmedqa_18847643,snapkv,0.7, Yes. The use of UH and FH in trauma patients is safe and effective. The use of,0.0,0.8850998878479004,376,112,2752512
+pubmedqa_18847643,domain_aware,0.3," Yes.
+
+Therapeutic anticoagulation in the trauma patient: is it effective?
+Answer:",0.0,0.8942828178405762,376,263,6463488
+pubmedqa_18847643,domain_aware,0.5, Yes. Trauma patients who require therapeutic anticoagulation are at increased risk for bleeding complications.,0.0,0.8831820487976074,376,188,4620288
+pubmedqa_18847643,domain_aware,0.7, Yes. The use of unfractionated heparin (UFH) in trauma patients is safe,0.0,0.879035234451294,376,113,2777088
+pubmedqa_18239988,oracle,0.0," Yes. The MCV, AST/ALT ratio and sex were the most relevant markers for differentiation of",1.0,0.8886551856994629,366,366,8994816
+pubmedqa_18239988,random,0.3, The MCV was elevated in 59% of NASH patients and normal in 10,0.0,0.8874852657318115,366,256,6291456
+pubmedqa_18239988,random,0.5, The MCV was elevated in 59% of NASH patients and 19% of,0.0,0.8773140907287598,366,183,4497408
+pubmedqa_18239988,random,0.7," routine laboratory markers are useful.
+What is the next step in the A list A list A A A",0.0,0.8734409809112549,366,109,2678784
+pubmedqa_18239988,knorm,0.3, Yes. The MCV is a useful marker for distinguishing NASH from ASH. The AST/,1.0,0.8896961212158203,366,256,6291456
+pubmedqa_18239988,knorm,0.5," Yes. The MCV, MCH, MCHC, and MCHA are useful for",1.0,0.8813550472259521,366,183,4497408
+pubmedqa_18239988,knorm,0.7, Yes. The authors conclude that routine laboratory markers are useful in the differentiation of nonalcoholic steato,1.0,0.8731813430786133,366,109,2678784
+pubmedqa_18239988,snapkv,0.3, Yes. The MCV is a useful marker for distinguishing NASH from ASH. The AST/,1.0,0.8975722789764404,366,256,6291456
+pubmedqa_18239988,snapkv,0.5, Yes. The MCV is a useful marker for the diagnosis of alcoholic steatohepatitis.,1.0,0.887315034866333,366,183,4497408
+pubmedqa_18239988,snapkv,0.7, The authors conclude that routine laboratory markers are useful for the differentiation of nonalcoholic steatohepat,0.0,0.8838589191436768,366,109,2678784
+pubmedqa_18239988,domain_aware,0.3, Yes. The MCV is a useful marker for the differentiation of nonalcoholic steatohepat,1.0,0.8915510177612305,366,256,6291456
+pubmedqa_18239988,domain_aware,0.5, Yes. The MCV is a useful marker for steatohepatitis. The AST/ALT,1.0,0.8784129619598389,366,183,4497408
+pubmedqa_18239988,domain_aware,0.7, The authors conclude that routine laboratory markers are useful for the differentiation of nonalcoholic steatohepat,0.0,0.8738329410552979,366,110,2703360
+pubmedqa_25957366,oracle,0.0," Yes
+Discussion:
+The results of this study suggest that automated, at-the-visit prompts about family",0.0,0.8608770370483398,316,316,7766016
+pubmedqa_25957366,random,0.3," Yes.
+Answer: No.
+Answer: Yes.
+Answer: No.
+Answer: Yes.
+Answer:",0.0,0.8530371189117432,316,221,5431296
+pubmedqa_25957366,random,0.5," Does It Work?
+Answer: Does It Work?
+Answer: Does It Work?
+Answer: Does It",0.0,0.850029706954956,316,158,3883008
+pubmedqa_25957366,random,0.7," Does It Work?
+Answer: Does It Work?
+Answer: Does It Work?
+Answer: Does It",0.0,0.8459141254425049,316,94,2310144
+pubmedqa_25957366,knorm,0.3," Yes
+Patient Screening for Family History: Does It Work?
+Answer: Yes
+Patient Screening for Family",0.0,0.8524820804595947,316,221,5431296
+pubmedqa_25957366,knorm,0.5," Yes
+Patient Screening for Family History: Does It Work?
+Answer: Yes
+Patient Screening for Family",0.0,0.8485000133514404,316,158,3883008
+pubmedqa_25957366,knorm,0.7," Yes
+Prompting Primary Care Providers about Increased Patient Risk As a Result of Family History: Does It",0.0,0.8466439247131348,316,94,2310144
+pubmedqa_25957366,snapkv,0.3," Yes. The use of automated, tailored prompts about family history risk for heart disease, stroke, diabetes",0.0,0.8629467487335205,316,221,5431296
+pubmedqa_25957366,snapkv,0.5," Yes
+Discussion: The results of this study suggest that prompting primary care providers about increased patient risk as",0.0,0.8580961227416992,316,158,3883008
+pubmedqa_25957366,snapkv,0.7, Yes. The use of family history prompts to increase patient risk awareness and to prompt primary care providers to,0.0,0.8553290367126465,316,94,2310144
+pubmedqa_25957366,domain_aware,0.3, Yes. The use of electronic health records to provide family history prompts to primary care providers is feasible and,0.0,0.8529777526855469,316,221,5431296
+pubmedqa_25957366,domain_aware,0.5, Yes. The study results suggest that electronic health record (EHR) systems can be used to improve,0.0,0.8491578102111816,316,158,3883008
+pubmedqa_25957366,domain_aware,0.7, No. The study was not designed to determine whether prompting primary care providers about increased patient risk as a,1.0,0.8473029136657715,316,95,2334720
+pubmedqa_24866606,oracle,0.0, Yes. Emergency ultrasound fellowships have a positive impact on emergency medicine residents' US education. The number,1.0,0.8423221111297607,287,287,7053312
+pubmedqa_24866606,random,0.3, Yes. Emergency ultrasound fellowship programs have a positive impact on emergency medicine residents' ultrasound education. Emergency ultrasound,1.0,0.8336739540100098,287,200,4915200
+pubmedqa_24866606,random,0.5," Yes
+Question: Does E hurt you? What do you do
+Answer: I do
+
+What",1.0,0.8372421264648438,287,143,3514368
+pubmedqa_24866606,random,0.7, Recent years of E US emergency ultrasound fellowship programs impact emergency ultrasound education; Answer: Recent years of E,0.0,0.8286848068237305,287,86,2113536
+pubmedqa_24866606,knorm,0.3, Yes. Emergency medicine residents' US education is significantly impacted by their residency program's EUS fellowship program,1.0,0.8342580795288086,287,200,4915200
+pubmedqa_24866606,knorm,0.5," Yes
+Do emergency ultrasound fellowships impact emergency medicine residents' US experience?
+Answer: Yes
+Do",1.0,0.8310849666595459,287,143,3514368
+pubmedqa_24866606,knorm,0.7," Yes
+Do emergency ultrasound fellowships impact emergency medicine residents' ultrasound education?
+Answer: Yes
+Do",1.0,0.8274948596954346,287,86,2113536
+pubmedqa_24866606,snapkv,0.3, Yes. Emergency ultrasound fellowships have a positive impact on emergency medicine residents' US education. The number,1.0,0.8420078754425049,287,200,4915200
+pubmedqa_24866606,snapkv,0.5, Yes. Emergency ultrasound fellowship programs have a positive impact on emergency medicine residents' ultrasound education. The number,1.0,0.8377251625061035,287,143,3514368
+pubmedqa_24866606,snapkv,0.7, Yes. Emergency ultrasound fellowship programs have a positive impact on emergency medicine residents' ultrasound education. The program,1.0,0.8353610038757324,287,86,2113536
+pubmedqa_24866606,domain_aware,0.3, Yes. Emergency ultrasound fellowship programs impact emergency medicine residents' ultrasound education. Emergency ultrasound fellowship programs have a,1.0,0.8319811820983887,287,201,4939776
+pubmedqa_24866606,domain_aware,0.5, Yes. Emergency ultrasound fellowship programs have a positive impact on emergency medicine residents' ultrasound education. Emergency ultrasound,1.0,0.8411562442779541,287,144,3538944
+pubmedqa_24866606,domain_aware,0.7, Yes. Emergency medicine residents' ultrasound education is impacted by their emergency ultrasound fellowship training. Emergency ultrasound fellowship,1.0,0.8331739902496338,287,86,2113536
