@@ -104,6 +104,10 @@ def extract_sections(text: str, headers: List[str] = None) -> SectionedNote:
     sections = [s for s in sections if text[s.start:s.end].strip()]
     if not sections:
         sections = [Section("full_note", "full_note", 0, len(text))]
+    elif len(sections) == 1 and sections[0].canonical == "preamble":
+        # No real headers were found anywhere in the text: the single
+        # "preamble" section is the whole note.
+        sections = [Section("full_note", "full_note", sections[0].start, sections[0].end)]
 
     return SectionedNote(text=text, sections=sections)
 
