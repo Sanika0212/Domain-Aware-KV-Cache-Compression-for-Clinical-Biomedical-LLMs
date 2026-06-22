@@ -1,135 +1,89 @@
-# Engine Integration Guide
+# Integration Guide: Real `kvpress` Usage
 
-This guide explains how to integrate domain-aware KV-cache compression into vLLM or KVPress runtimes.
+This project compresses the **actual KV cache** of a real HuggingFace
+`transformers` model using the real [`kvpress`](https://github.com/NVIDIA/kvpress)
+library — not a mocked dict, and not vLLM (the brief explicitly avoids vLLM
+engine surgery; `kvpress` patches `transformers` attention layers directly via
+forward hooks, which is engine-agnostic and works on CPU, MPS, or CUDA).
 
-## Overview
+## Supported models
 
-The module `src/domain_kv/engine_integration.py` provides adapter skeletons for:
-- **vLLM** (official LLM inference engine)
-- **KVPress** (modular KV-cache caching layer)
-- **MockEngineAdapter** (for local testing)
+`kvpress` (and therefore `DomainAwarePress`) only supports a fixed set of HF
+architectures (checked against the installed package, see
+`kvpress.SUPPORTED_MODELS`): **Llama, Mistral, Phi3, Qwen2, Qwen3, Gemma3**.
+This project defaults to `Qwen/Qwen2.5-0.5B-Instruct` (small enough to run on
+a CPU-only machine in seconds) but the exact same code works unmodified with
+a 7-8B biomedical model on the same architecture family, e.g. `BioMistral-7B`
+or `epfl-llm/meditron-7b` (both Llama/Mistral-family), given a GPU.
 
-The adapter pattern is simple:
-1. Instantiate adapter with your engine: `adapter = VLLMAdapter(engine)` or `KVPressAdapter(engine)`
-2. Call `snapshot()` to capture the current KV cache state (organized by clinical section)
-3. Apply `compress_kv_cache()` to compress per-section budgets
-4. Call `apply_compressed()` to atomically update the engine's KV store
-
-## vLLM Integration
-
-### Prerequisites
-
-```bash
-pip install vllm>=0.6.0
-```
-
-### Minimal Example
+## Core API
 
 ```python
-from vllm import LLM, SamplingParams
-from domain_kv.engine_integration import VLLMAdapter
-from domain_kv.section_parser import extract_sections
-from domain_kv.allocator import allocate_budgets
-from domain_kv.compressor import compress_kv_cache
+from transformers import AutoModelForCausalLM, AutoTokenizer, DynamicCache
+from kvpress import KnormPress
 
-# Create engine
-llm = LLM(model="meta-llama/Llama-2-7b-hf")
-adapter = VLLMAdapter(llm)
+from domain_kv.section_parser import extract_sections, tag_token_sections
+from domain_kv.allocator import allocate_token_budgets
+from domain_kv.press import DomainAwarePress
 
-# Run inference on a clinical note
-prompt = "Chief complaint: Chest pain. History of present illness: ..."
-outputs = llm.generate(prompt, SamplingParams(max_tokens=100))
+tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-0.5B-Instruct")
+model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-0.5B-Instruct")
 
-# Capture KV cache snapshot
-kv_snapshot = adapter.snapshot()
+note = extract_sections(clinical_note_text)
+section_ids, names = tag_token_sections(note, tokenizer)
 
-# Compress with section-aware budgets
-sections = extract_sections(prompt)
-budgets = allocate_budgets(sections, total_budget=256)
-compressed = compress_kv_cache(kv_snapshot, budgets, quantize='float16')
+context_ids = tokenizer(note.text, return_tensors="pt").input_ids
+total_budget = int(0.5 * context_ids.shape[1])  # keep 50% of tokens
+budgets = allocate_token_budgets(section_ids, names, total_budget)
 
-# Apply compressed cache back into engine
-adapter.apply_compressed(compressed)
+press = DomainAwarePress(base_press=KnormPress())  # any ScorerPress works as the
+                                                     # intra-section ranking function
+press.set_document(section_ids, budgets)
 
-# Continue inference with reduced memory footprint
-outputs = llm.generate("Continue with assessment...", SamplingParams(max_tokens=100))
+cache = DynamicCache()
+with press(model):                      # real kvpress context manager:
+    model.model(input_ids=context_ids,  # registers forward hooks on every
+                past_key_values=cache)  # attention layer, compresses during
+                                         # this prefill call, then un-hooks.
 ```
 
-### Customizing Section Mapping
+`DomainAwarePress.compress()` is called once per attention layer during
+prefill. It ranks tokens *within each section* using a delegated base scorer
+(any `kvpress.ScorerPress`, e.g. `KnormPress` or `SnapKVPress`), keeps the
+top-`budget[section]` tokens per section, and gathers the corresponding
+key/value tensors — enforcing the literal per-section KV budget claim, while
+still using a real attention/key-norm-based importance signal for *which*
+tokens within a section survive.
 
-By default, `VLLMAdapter.snapshot()` maps entries to sections based on metadata tags.
-If your prompts lack explicit section headers, override the adapter:
+## Continuing generation against a compressed cache
 
-```python
-class CustomVLLMAdapter(VLLMAdapter):
-    def snapshot(self):
-        result = super().snapshot()
-        # add custom section parsing logic if needed
-        return result
-```
+`kvpress` doesn't restore chronological token order after pruning (confirmed
+by reading `SnapKVPress`/`KnormPress` source — `topk` + `gather` keeps score
+order). This is safe: compression only runs during prefill, and every
+subsequent decode step attends to the *entire* past cache without a causal
+mask over it, so permutation has no effect. `benchmarks/runner.py::generate_answer`
+mirrors `kvpress.KVPressTextGenerationPipeline.generate_answer` for continuing
+generation with the right `position_ids` (continuing from the *original*,
+pre-compression context length, since RoPE rotation for kept tokens was baked
+in at their true absolute position before compression).
 
-## KVPress Integration
+## Adding a new baseline
 
-### Prerequisites
+Any class from `kvpress` (`RandomPress`, `SnapKVPress`, `ExpectedAttentionPress`,
+`PyramidKVPress`, ...) can be dropped into `benchmarks/runner.py::build_press`
+as a structure-agnostic baseline to compare against `DomainAwarePress` at a
+matched overall compression ratio.
 
-```bash
-pip install kvpress
-```
+## Extending section parsing to a new document type
 
-### Minimal Example
+`domain_kv.section_parser` has two entry points:
+- `extract_sections(text)` — regex/header-based segmentation for free text
+  (clinical notes with headers like "Chief Complaint:", "Medications:", ...).
+- `from_labeled_paragraphs(labels, paragraphs)` — direct construction from
+  already-segmented sources (used for PubMedQA's structured-abstract labels:
+  BACKGROUND/OBJECTIVE/METHODS/RESULTS/CONCLUSIONS).
 
-```python
-from kvpress import KVPressEngine
-from domain_kv.engine_integration import KVPressAdapter
-# ... same import pattern as vLLM above
-
-engine = KVPressEngine(...)
-adapter = KVPressAdapter(engine)
-
-# snapshot, compress, apply as above
-```
-
-## Safe Update Semantics
-
-**Important:** Both vLLM and KVPress are concurrent systems. When calling `apply_compressed()`:
-
-1. **No outstanding requests** should be reading the KV cache.
-2. **Atomicity:** The adapter must ensure that updates are atomic (all-or-nothing) from the engine's perspective.
-3. **Locks:** Consider using engine-specific locks or synchronization primitives.
-
-For production use, implement engine-specific atomic updates. The current skeletons are for **experiments only**.
-
-## MockEngineAdapter (Testing)
-
-For unit tests or local experiments, use the `MockEngineAdapter`:
-
-```python
-from domain_kv.engine_integration import MockEngineAdapter
-
-kv = {'section': [('k1', vec1), ('k2', vec2)]}
-adapter = MockEngineAdapter(internal_store=kv)
-
-snap = adapter.snapshot()
-# ... compress ...
-adapter.apply_compressed(compressed)
-```
-
-## Troubleshooting
-
-### "Failed to snapshot vLLM KV"
-- Verify the vLLM version matches the expected API (check `vllm.__version__`).
-- The vLLM KV cache layout may differ; inspect `llm.engine.kv` structure and adapt.
-
-### "Failed to apply compressed KV"
-- Ensure no active inference threads are accessing the cache.
-- Use engine-provided APIs instead of direct mutation (e.g., `llm.engine.set_kv(...)` if available).
-
-### vLLM/KVPress modules not found
-- Install them: `pip install vllm kvpress`
-- The adapters gracefully fall back to `None` if imports fail.
-
-## Next Steps
-
-1. Run the example benchmark with your engine: `PYTHONPATH=src python examples/benchmark_demo.py`
-2. Implement engine-specific tests in `tests/test_vllm_integration.py` or `tests/test_kvpress_integration.py`.
-3. Measure latency and accuracy impact of compression on real clinical queries.
+Both return a `SectionedNote`, the common type consumed by
+`tag_token_sections` and `allocate_token_budgets`. Add a new entry point
+returning a `SectionedNote` to support another document type without
+touching the allocator or press.
