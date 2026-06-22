@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "domain-kv"
+version = "0.1.0"
+description = "Domain-aware KV-cache compression for clinical/biomedical LLMs: per-section token budgets derived from EHR document structure."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Sanika0212", email = "sanikanajan@gmail.com" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "numpy>=1.24",
+    "torch>=2.2",
+    "transformers>=4.46",
+    "accelerate>=0.34",
+    "kvpress>=0.2",
+    "datasets>=2.20",
+    "pandas>=2.0",
+    "matplotlib>=3.8",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: integration tests that download/load a real model (opt-in, run with `-m slow`)",
+]
+addopts = "-m 'not slow'"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
