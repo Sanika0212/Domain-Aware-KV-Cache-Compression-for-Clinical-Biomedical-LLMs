@@ -123,10 +123,43 @@ generate_answer(...)  →  real greedy decoding against the compressed cache
 
 ## Real Results
 
-Run on `Qwen/Qwen2.5-0.5B-Instruct`, Apple M4 CPU, synthetic EHR-structured
-notes + real PubMedQA examples across several compression ratios. Numbers
-below will be filled in from an actual `benchmarks/runner.py` run — see
-`results/` once generated.
+Run on `Qwen/Qwen2.5-0.5B-Instruct`, **Apple M4 CPU** (no CUDA on this
+machine — see `EVALUATION_PLAN.md` §5.1 for why), 20 synthetic EHR-structured
+notes + 15 real PubMedQA examples, compression ratios {0.3, 0.5, 0.7}, scored
+by token-F1 (synthetic, open-generation medication QA) or exact-match
+(PubMedQA, yes/no/maybe). Full data: `results/runs.csv` / `results/summary.csv`.
+Regenerate with the command in Quick Start.
+
+Mean task score by press and compression ratio (455 real runs, `results/summary.csv`):
+
+| Press | ratio=0.30 | ratio=0.50 | ratio=0.70 |
+|---|---|---|---|
+| **`oracle`** (no compression) | 0.587 *(at ratio=0.0)* | — | — |
+| `random` | 0.384 | 0.299 | 0.046 |
+| `knorm` | 0.432 | 0.397 | 0.358 |
+| `snapkv` | 0.425 | 0.262 | 0.224 |
+| **`domain_aware` (ours)** | **0.471** | **0.501** | **0.405** |
+
+`domain_aware` scores highest among all compressed conditions at every tested
+ratio, and degrades far more gracefully at aggressive compression: at
+ratio=0.70 (keeping only 30% of KV tokens), `domain_aware` retains 0.405
+mean score versus `random`'s 0.046 (>8x), and still clearly ahead of
+`knorm` (0.358) and `snapkv` (0.224). See `results/accuracy_vs_ratio.png` and
+`results/memory_vs_ratio.png` for the full Pareto curves, and `results/runs.csv`
+for every individual run (model answer, score, latency, KV memory bytes).
+
+Two things to read honestly from this table (small model, small sample —
+treat as a feasibility demonstration, not a publication-scale claim):
+- **Sections matter for *which* tokens survive eviction**, not just how many.
+  At matched compression ratios, `domain_aware` and the structure-agnostic
+  baselines keep the *same number* of tokens but different *tokens*.
+- A 0.5B model is a weak silver-bullet detector — at this scale, oracle
+  accuracy itself is mediocre on the harder examples, which compresses the
+  dynamic range available to show a compression-method gap. The mechanism
+  (per-section budgeting on a real KV cache) is the contribution; the
+  absolute numbers should be re-measured on a 7-8B biomedical model (the code
+  already supports this via `--model`) before drawing task-performance
+  conclusions.
 
 ---
 
