@@ -27,6 +27,13 @@ CLINICAL_IMPORTANCE_PROFILE: Dict[str, float] = {
     "review_of_systems": 0.7,
     "preamble": 0.5,
     "full_note": 1.0,
+    # PubMedQA-style structured-abstract sections (see
+    # section_parser.from_labeled_paragraphs).
+    "results": 1.8,
+    "conclusions": 1.7,
+    "methods": 1.2,
+    "objective": 1.3,
+    "background": 0.9,
 }
 
 
