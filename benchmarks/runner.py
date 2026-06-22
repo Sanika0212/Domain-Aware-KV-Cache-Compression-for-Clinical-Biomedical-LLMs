@@ -10,6 +10,12 @@ from typing import List
 
 import torch
 
+from kvpress import RandomPress, KnormPress, SnapKVPress
+
+from domain_kv.section_parser import tag_token_sections
+from domain_kv.allocator import allocate_token_budgets
+from domain_kv.press import DomainAwarePress
+
 from benchmarks.loader import BenchmarkExample
 
 
@@ -65,3 +71,23 @@ def generate_answer(model, tokenizer, question_ids: torch.Tensor, cache, context
         if new_id.item() in eos_ids:
             break
     return tokenizer.decode(torch.stack(generated_ids), skip_special_tokens=True)
+
+
+def build_press(name: str, ratio: float, example: BenchmarkExample, tokenizer, n_tokens: int):
+    """Returns (press_or_None, extra_setup_callable_or_None)."""
+    if name == "oracle":
+        return None
+    if name == "random":
+        return RandomPress(compression_ratio=ratio)
+    if name == "knorm":
+        return KnormPress(compression_ratio=ratio)
+    if name == "snapkv":
+        return SnapKVPress(compression_ratio=ratio, window_size=min(32, max(1, n_tokens // 4)))
+    if name == "domain_aware":
+        section_ids, names = tag_token_sections(example.note, tokenizer)
+        total_budget = max(1, int(round(n_tokens * (1 - ratio))))
+        budgets = allocate_token_budgets(section_ids, names, total_budget)
+        press = DomainAwarePress(base_press=KnormPress())
+        press.set_document(section_ids, budgets)
+        return press
+    raise ValueError(f"Unknown press {name!r}")
