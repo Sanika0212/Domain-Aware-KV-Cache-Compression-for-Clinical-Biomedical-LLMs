@@ -1,61 +1,39 @@
-"""Experiment runner that wires parsing, allocation, compression, and evaluation."""
-from typing import Dict, Any
-from domain_kv.section_parser import extract_sections
-from domain_kv.allocator import allocate_budgets
-from domain_kv.compressor import compress_kv_cache
-from domain_kv.kvpress_adapter import KVPressAdapter
-from benchmarks.loader import load_sample_notes
-import time
+"""Real evaluation harness: runs an actual HF causal LM, actually compresses
+its KV cache during prefill via real `kvpress` presses (including our
+`DomainAwarePress`), and actually generates an answer, then scores it.
+
+No mocked tensors, no fabricated metrics. Memory and latency numbers come
+from the real `DynamicCache` and `time.time()` around real forward passes.
+"""
+from collections import Counter
+from typing import List
+
+from benchmarks.loader import BenchmarkExample
 
 
-class ExperimentRunner:
-    def __init__(self, total_budget: int = 128, quantize: str = 'float16'):
-        self.total_budget = total_budget
-        self.quantize = quantize
+def f1_score(pred: str, gold: str) -> float:
+    pred_tokens = pred.lower().split()
+    gold_tokens = gold.lower().split()
+    if not pred_tokens or not gold_tokens:
+        return float(pred_tokens == gold_tokens)
+    common = Counter(pred_tokens) & Counter(gold_tokens)
+    num_same = sum(common.values())
+    if num_same == 0:
+        return 0.0
+    precision = num_same / len(pred_tokens)
+    recall = num_same / len(gold_tokens)
+    return 2 * precision * recall / (precision + recall)
 
-    def build_kv_from_note(self, note_text: str) -> Dict[str, list]:
-        secs = extract_sections(note_text)
-        # naive per-section KV entries: one vector per sentence token
-        kv = {}
-        for s, t in secs.items():
-            # represent each sentence by a small random vector placeholder
-            lines = [ln for ln in t.splitlines() if ln.strip()]
-            kv[s] = []
-            for i, ln in enumerate(lines):
-                vec = self._fake_vector(ln, i)
-                kv[s].append((f"{s}_sent_{i}", vec))
-        return kv
 
-    def _fake_vector(self, text: str, seed: int):
-        import numpy as np
-        rng = np.random.RandomState(abs(hash(text)) % (2**31) + seed)
-        return rng.randn(256).astype('float32')
+def choice_score(pred: str, gold: str, choices: List[str]) -> float:
+    pred_l = pred.lower()
+    for c in choices:
+        if c in pred_l:
+            return float(c == gold.lower())
+    return 0.0
 
-    def run_once(self, note_id: str, note_text: str) -> Dict[str, Any]:
-        start = time.time()
-        kv = self.build_kv_from_note(note_text)
-        secs = extract_sections(note_text)
-        budgets = allocate_budgets(secs, total_budget=self.total_budget)
-        compressed = compress_kv_cache(kv, budgets, quantize=self.quantize)
-        adapter = KVPressAdapter()
-        adapter.apply_compressed(compressed)
-        size = adapter.size_by_section()
-        elapsed = time.time() - start
-        # mock metric: retained fraction of original items
-        orig_counts = {k: len(v) for k, v in kv.items()}
-        retained_frac = {k: size.get(k, 0) / max(1, orig_counts.get(k, 0)) for k in orig_counts}
-        return {
-            'note_id': note_id,
-            'orig_counts': orig_counts,
-            'retained': size,
-            'retained_frac': retained_frac,
-            'elapsed': elapsed,
-            'budgets': budgets,
-        }
 
-    def run_dataset(self):
-        results = []
-        for nid, note in load_sample_notes():
-            res = self.run_once(nid, note)
-            results.append(res)
-        return results
+def score_example(example: BenchmarkExample, generated: str) -> float:
+    if example.answer_type == "f1":
+        return f1_score(generated, example.expected_answer)
+    return choice_score(generated, example.expected_answer, example.choices or [])
