@@ -15,7 +15,7 @@ import csv
 import time
 from collections import Counter
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, DynamicCache
