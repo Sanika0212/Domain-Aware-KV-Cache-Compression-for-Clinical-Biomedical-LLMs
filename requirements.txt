@@ -1,9 +1,12 @@
+# Pip-only install (prefer `pip install -e .` via pyproject.toml instead).
+# Requires Python >=3.10,<3.13 -- kvpress's `fire` dependency imports the
+# stdlib `pipes` module, which was removed in Python 3.13.
 numpy>=1.24
-scipy
-scikit-learn
-faiss-cpu
-torch
-transformers
-pytest
-# Optional: vllm for KVPress integration (install separately if desired)
-# vllm
+torch>=2.2
+transformers>=4.46
+accelerate>=0.34
+kvpress>=0.2
+datasets>=2.20
+pandas>=2.0
+matplotlib>=3.8
+pytest>=8.0
