@@ -189,23 +189,3 @@ treat as a feasibility demonstration, not a publication-scale claim):
 - GenCache, Prompt Cache, SemShareKV — prompt-reuse caching, orthogonal to compression.
 
 See `EVALUATION_PLAN.md` for the full research-questions/protocol writeup and current implementation status.
-
----
-
-## Contributing
-
-Contributions welcome — open an issue or PR. Before committing, confirm your
-git identity is set for this repo:
-
-```bash
-git config user.name "Sanika0212"
-git config user.email "sanikanajan@gmail.com"
-```
-
-## License
-
-[MIT](LICENSE)
-
-## Contact
-
-Sanika0212 — sanikanajan@gmail.com — https://github.com/Sanika0212
