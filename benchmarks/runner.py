@@ -117,10 +117,13 @@ def run_example(model, tokenizer, example: BenchmarkExample, press_name: str, ra
     with cm:
         with torch.no_grad():
             model.model(input_ids=context_ids, past_key_values=cache)
-    answer = generate_answer(model, tokenizer, question_ids, cache, n_tokens, max_new_tokens)
-    elapsed = time.time() - t0
+    # Measure the compressed cache right after prefill, before generation
+    # appends answer tokens to it (otherwise short compressed runs could look
+    # artificially larger than they really are post-compression).
     kept_tokens = dkv_metrics.cache_num_tokens(cache)
     mem_bytes = dkv_metrics.cache_bytes(cache)
+    answer = generate_answer(model, tokenizer, question_ids, cache, n_tokens, max_new_tokens)
+    elapsed = time.time() - t0
 
     return {
         "example_id": example.example_id,
