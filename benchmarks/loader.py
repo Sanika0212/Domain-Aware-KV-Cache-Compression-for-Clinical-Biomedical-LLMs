@@ -1,5 +1,7 @@
 """Dataset loaders for the domain-aware KV-compression benchmark.
 
+Two real sources, both public and requiring no credentialing:
+
 1. `load_synthetic_notes` — a seeded generator of EHR-style clinical notes
    (chief complaint, HPI, PMH, meds, allergies, vitals, labs, physical exam,
    assessment & plan) with a deterministic QA pair per note and *injected
