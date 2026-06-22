@@ -63,6 +63,8 @@ run against the real model's KV cache (no simulation):
    budgets (`domain_kv.allocator.allocate_token_budgets`) with `KnormPress`-based
    intra-section ranking.
 
+---
+
 ## 4. Metrics
 
 ### 4.1 Task Performance
@@ -84,57 +86,58 @@ run against the real model's KV cache (no simulation):
 ## 5. Experimental Protocol
 
 ### 5.1 Setup
-- **Model:** Llama-2-7B or Mistral-7B (vLLM-compatible).
-- **Hardware:** Single A100 (80GB) or V100 (32GB).
-- **Context Length:** 2K–4K tokens (typical clinical note length).
-- **Repetitions:** 5 random seeds; report mean ± std dev.
+- **Default model:** `Qwen/Qwen2.5-0.5B-Instruct` (Qwen2 architecture — one of
+  `kvpress.SUPPORTED_MODELS` — small enough to run real prefill+generation on
+  a CPU-only machine in well under a second per example). `benchmarks/runner.py
+  --model` accepts any `kvpress`-supported architecture, so the identical code
+  scales to a 7-8B biomedical model (BioMistral-7B, Meditron-7B) given a GPU,
+  without any code changes.
+- **Hardware actually used for the numbers in this repo:** Apple M4, CPU-only
+  (no CUDA). Numbers are reported as exactly what they are — a small-model,
+  CPU-feasibility benchmark, not a claim about 7-8B-scale behavior.
+- **Context length:** ~250-450 tokens (synthetic notes) / ~250-600 tokens
+  (PubMedQA structured abstracts) — see `results/runs.csv` for actuals.
 
 ### 5.2 Procedure
 
-#### Experiment 1: Static Compression on QA Benchmark
+#### Experiment 1: Static compression across ratios (implemented)
 ```
-for each model in [Llama-7B, Mistral-7B]:
-  for each compression_ratio in [0.1, 0.3, 0.5, 0.7, 0.9]:
-    for each baseline in [oracle, uniform, learned, domain_aware]:
-      - Load clinical QA prompt + context
-      - Compress KV cache (per baseline strategy)
-      - Generate answer; measure latency & accuracy
-      - Report: accuracy, latency, memory saved
+python benchmarks/runner.py \
+  --model Qwen/Qwen2.5-0.5B-Instruct \
+  --n-synthetic 20 --n-pubmedqa 15 \
+  --ratios 0.3 0.5 0.7 \
+  --presses oracle random knorm snapkv domain_aware \
+  --out results/runs.csv
+python benchmarks/plot_results.py --csv results/runs.csv --out-dir results/
 ```
+For each (example, press, ratio): compress the real KV cache during prefill,
+generate a real answer, score it, and record real latency + real KV memory
+bytes. See `results/summary.csv` and `results/*.png` for the actual output of
+this run (committed to the repo, regenerable by anyone).
 
-#### Experiment 2: Adaptive Compression During Generation
-```
-for each model in [Llama-7B, Mistral-7B]:
-  - Run generation with streaming KV compression
-  - Trigger compression every N tokens (e.g., N=512)
-  - Measure: cumulative latency, final accuracy, peak memory
-```
-
-#### Experiment 3: Section Ablation
-```
-for each clinical section in [chief_complaint, labs, vitals, meds, assessment]:
-  - Compress all sections uniformly EXCEPT target
-  - Measure accuracy drop when section is evicted
-  - Rank sections by importance
-```
+#### Experiment 2: Section ablation (not yet run — future work)
+For each clinical section, set its budget to 0 (full eviction) while keeping
+others at their normal allocation; measure the resulting score drop to rank
+sections by importance. The mechanism (`allocate_token_budgets` accepts an
+explicit per-section override) already supports this; only the sweep script
+is unwritten.
 
 ### 5.3 Reproducibility
-- Fix random seeds (numpy, torch).
-- Report model version (e.g., "llama-2-7b-hf@huggingface").
-- Save KV cache snapshots for offline analysis.
-- Release code & datasets on GitHub.
+- `benchmarks/loader.load_synthetic_notes(seed=...)` is deterministic.
+- Model name and `kvpress` version are recorded in `results/summary.csv`'s
+  companion run command; pin exact versions via `pyproject.toml`.
+- All data sources are public, no-license-agreement datasets — anyone can
+  `git clone` and reproduce `results/runs.csv` exactly.
 
 ---
 
 ## 6. Ablation Studies
 
-| Ablation | Hypothesis | Metric |
+| Ablation | Hypothesis | Status |
 |----------|-----------|--------|
-| **No quantization** | Float32 vs. float16 | Memory footprint, accuracy |
-| **Uniform allocation** | Per-section vs. global budget | Accuracy, memory–latency trade-off |
-| **LRU only** | Eviction only (no quantization) | Baseline vs. combined |
-| **Simple vs. learned weights** | Hand-crafted section importance | Section retention ratio, accuracy |
-| **Single section drop** | Which sections are critical? | Per-section importance ranking |
+| **Uniform vs. per-section allocation** | Per-section budgets preserve accuracy better than a structure-agnostic compressor at the same ratio | Implemented — `oracle/random/knorm/snapkv` vs. `domain_aware` in `results/runs.csv` |
+| **Base scorer choice** | `DomainAwarePress(base_press=...)` ranking-within-section sensitivity (Knorm vs. SnapKV) | Mechanism implemented (`base_press` param); sweep not yet run |
+| **Single section drop** | Which clinical sections are most critical? | Not yet run — see Experiment 2 in §5.2 |
 
 ---
 
