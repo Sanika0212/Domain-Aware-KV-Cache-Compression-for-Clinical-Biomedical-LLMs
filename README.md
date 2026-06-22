@@ -24,6 +24,15 @@ from clinical document structure, and the first public benchmark of
 KV-compression methods (Random/Knorm/SnapKV/ours) on a clinical/biomedical
 long-context task.
 
+## What changed from the first scaffold
+
+An earlier version of this repo manipulated a fake in-memory `dict` of
+random vectors and printed invented "expected" numbers. That has been fully
+replaced: real tokenizer-offset section tagging, a real `kvpress.ScorerPress`
+subclass operating on real attention KV tensors, a real public dataset
+(PubMedQA) plus a seeded synthetic-EHR generator, and real measured results
+on an actual model. See `git log` for the rebuild commit if you want the diff.
+
 ---
 
 ## Quick Start
