@@ -108,6 +108,30 @@ def extract_sections(text: str, headers: List[str] = None) -> SectionedNote:
     return SectionedNote(text=text, sections=sections)
 
 
+def from_labeled_paragraphs(labels: List[str], paragraphs: List[str]) -> SectionedNote:
+    """Build a SectionedNote directly from pre-segmented (label, paragraph)
+    pairs, as provided by structured biomedical sources (e.g. PubMedQA's
+    `context.labels` / `context.contexts`: BACKGROUND, OBJECTIVE, METHODS,
+    RESULTS, CONCLUSIONS). No regex header detection needed since the
+    boundaries are already known.
+    """
+    text_parts = []
+    sections = []
+    pos = 0
+    for label, para in zip(labels, paragraphs):
+        canon = label.strip().lower()
+        header_line = f"{label.strip()}:\n"
+        text_parts.append(header_line)
+        pos += len(header_line)
+        start = pos
+        body = para.strip() + "\n\n"
+        text_parts.append(body)
+        pos += len(body)
+        sections.append(Section(canon, canon, start, pos))
+    full_text = "".join(text_parts)
+    return SectionedNote(text=full_text, sections=sections)
+
+
 def tag_token_sections(note: SectionedNote, tokenizer) -> Tuple[np.ndarray, List[str]]:
     """Map each token produced by `tokenizer(note.text)` to a section index.
 
