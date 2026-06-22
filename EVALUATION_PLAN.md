@@ -17,30 +17,51 @@ This document outlines the evaluation strategy for the domain-aware KV-cache com
 
 ## 2. Datasets & Benchmarks
 
-### 2.1 Public Clinical Datasets
+This project deliberately uses only public, no-credentialing-required data
+(MIMIC-III/IV requires a PhysioNet license agreement we have not pursued, to
+keep the benchmark reproducible by anyone who clones the repo).
 
-| Dataset | Size | Task | Notes |
-|---------|------|------|-------|
-| **Medical QA (arXiv:2411.09834)** | ~8K Q&A pairs | Long-context QA on discharge summaries | Benchmark for clinical comprehension; uses 7B–13B models |
-| **MIMIC-III (via PhysioNet)** | 40K+ notes | Readmission prediction, note extraction | Requires license agreement; representative of real EHR text |
-| **PubMed & Clinical Notes (open)** | ~100K notes | Synthetic long-context tasks | For quick prototyping |
+### 2.1 Real public biomedical QA: PubMedQA
 
-### 2.2 Synthetic Benchmark
+`benchmarks/loader.py::load_pubmedqa` loads `qiaojin/PubMedQA` (`pqa_labeled`
+split) from the Hugging Face Hub — 1,000 expert-labeled biomedical QA
+examples, each with a structured abstract (BACKGROUND/OBJECTIVE/METHODS/
+RESULTS/CONCLUSIONS) and a yes/no/maybe ground-truth answer. The structured
+labels become real sections via `domain_kv.section_parser.from_labeled_paragraphs`
+— no regex header-guessing needed since the boundaries are already known.
+This is biomedical *literature* QA, not EHR notes; see §2.2 for the
+EHR-document-structure benchmark.
 
-- Generate long clinical notes (2K–4K tokens) by combining real-world templates (chief complaint, labs, meds, plan).
-- Inject redundancy patterns observed in real EHRs (copy-forwarded text, templated sections).
-- Query: "Extract key findings" / "Predict readmission risk" / "Summarize care plan".
+### 2.2 Synthetic EHR-structured benchmark
+
+`benchmarks/loader.py::load_synthetic_notes` generates clinical notes (chief
+complaint, HPI, PMH, medications, allergies, vitals, labs, physical exam,
+assessment & plan) from randomized templates, each with a deterministic
+medication-dose QA target for token-F1 scoring. Critically, it injects
+**copy-forwarded redundancy** — the same HPI sentence verbatim in both the
+HPI and assessment-and-plan sections — mirroring the repetition pattern
+documented in Wornow et al. (arXiv:2412.16178) and the "Addressing Note
+Bloat" EHR study cited in the project brief (46% of real EHR note text is
+copy-forwarded). This is what makes per-section budgeting interesting: a
+structure-agnostic compressor sees the duplicated sentence as independently
+"important" wherever it appears, while a section-budget approach evicts
+according to where it sits in the clinical structure.
 
 ---
 
 ## 3. Baselines
 
-1. **No Compression (Oracle):** Full KV cache, no eviction. Baseline for accuracy.
-2. **Uniform Compression:** LRU eviction across all tokens (e.g., SnapKV, H2O).
-3. **Learned Compression:** Attention-head importance weighting (e.g., PyramidKV, StructKV).
-4. **Domain-Aware (Ours):** Per-section budgets with learned or heuristic importance weights.
+All implemented as real `kvpress` presses in `benchmarks/runner.py::build_press`,
+run against the real model's KV cache (no simulation):
 
----
+1. **`oracle`:** No compression (`press=None`). Upper bound for accuracy.
+2. **`random`:** `kvpress.RandomPress` — structure-agnostic random eviction.
+3. **`knorm`:** `kvpress.KnormPress` — structure-agnostic, key-L2-norm-based eviction.
+4. **`snapkv`:** `kvpress.SnapKVPress` — structure-agnostic, attention-based eviction
+   (this is the real SnapKV from arXiv:2404.14469, not a re-implementation).
+5. **`domain_aware`:** `domain_kv.press.DomainAwarePress` (ours) — per-section
+   budgets (`domain_kv.allocator.allocate_token_budgets`) with `KnormPress`-based
+   intra-section ranking.
 
 ## 4. Metrics
 
