@@ -1,11 +1,18 @@
 """Section parsing for clinical notes, with real tokenizer-level section tagging.
 
-`extract_sections` — regex/header based segmentation of raw note text into
-named sections with character spans (chief complaint, HPI, meds, labs, ...).
+Two layers:
+1. `extract_sections` — regex/header based segmentation of raw note text into
+   named sections with character spans (chief complaint, HPI, meds, labs, ...).
+2. `tag_token_sections` — maps every *token* produced by a real HuggingFace
+   tokenizer to the section it falls in, via `return_offsets_mapping`. This is
+   what lets the budget allocator and `DomainAwarePress` operate on the actual
+   KV-cache sequence dimension instead of on strings.
 """
 from dataclasses import dataclass
-from typing import Dict, List
+from typing import Dict, List, Tuple
 import re
+
+import numpy as np
 
 DEFAULT_HEADERS = [
     r"(?i)^chief complaint", r"(?i)^history of present illness", r"(?i)^past medical history",
@@ -99,3 +106,40 @@ def extract_sections(text: str, headers: List[str] = None) -> SectionedNote:
         sections = [Section("full_note", "full_note", 0, len(text))]
 
     return SectionedNote(text=text, sections=sections)
+
+
+def tag_token_sections(note: SectionedNote, tokenizer) -> Tuple[np.ndarray, List[str]]:
+    """Map each token produced by `tokenizer(note.text)` to a section index.
+
+    Returns
+    -------
+    section_ids : np.ndarray of shape (seq_len,), dtype int64
+        section_ids[i] is the index into `canonical_names` for token i.
+    canonical_names : list[str]
+        canonical_names[section_ids[i]] is the canonical section name of token i.
+    """
+    encoded = tokenizer(note.text, return_offsets_mapping=True, add_special_tokens=True)
+    offsets = encoded["offset_mapping"]
+
+    canonical_names = sorted({s.canonical for s in note.sections})
+    name_to_idx = {n: i for i, n in enumerate(canonical_names)}
+
+    spans = sorted(((s.start, s.end, s.canonical) for s in note.sections), key=lambda x: x[0])
+
+    def section_for_char(c: int) -> str:
+        for start, end, canon in spans:
+            if start <= c < end:
+                return canon
+        return spans[-1][2] if spans else "full_note"
+
+    section_ids = np.zeros(len(offsets), dtype=np.int64)
+    for i, (start, end) in enumerate(offsets):
+        if start == end:
+            # Special token (e.g. BOS/EOS) with empty span; assign to the section
+            # of the nearest real token, defaulting to the first section.
+            section_ids[i] = section_ids[i - 1] if i > 0 else name_to_idx[canonical_names[0]]
+            continue
+        canon = section_for_char(start)
+        section_ids[i] = name_to_idx.get(canon, 0)
+
+    return section_ids, canonical_names
