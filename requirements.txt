@@ -1,0 +1,9 @@
+numpy>=1.24
+scipy
+scikit-learn
+faiss-cpu
+torch
+transformers
+pytest
+# Optional: vllm for KVPress integration (install separately if desired)
+# vllm
