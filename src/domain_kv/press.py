@@ -87,7 +87,13 @@ class DomainAwarePress(ScorerPress):
                 "before running a forward pass."
             )
 
-        k_len = keys.shape[2]
+        batch_size, _, k_len, _ = keys.shape
+        if batch_size != 1:
+            raise NotImplementedError(
+                "DomainAwarePress currently supports batch_size=1 (one document's KV cache "
+                "compressed at a time), matching this project's benchmark usage."
+            )
+
         section_ids = self._section_ids.to(keys.device)
         if section_ids.shape[0] != k_len:
             raise ValueError(
@@ -96,34 +102,26 @@ class DomainAwarePress(ScorerPress):
             )
 
         scores = self.score(module, hidden_states, keys, values, attentions, kwargs)
-        # scores: (batch, num_kv_heads, k_len). Budgeting is per-document (per
-        # batch element); average over kv heads to get one ranking per token.
-        token_scores = scores.mean(dim=1)  # (batch, k_len)
+        # scores: (1, num_kv_heads, k_len) -> one ranking per token, averaged over kv heads.
+        token_scores = scores.mean(dim=1)[0]  # (k_len,)
 
-        keep_mask = torch.zeros_like(token_scores, dtype=torch.bool)
+        keep_mask = torch.zeros(k_len, dtype=torch.bool, device=keys.device)
         for sec_id, budget in self._budgets.items():
             sec_positions = (section_ids == sec_id).nonzero(as_tuple=True)[0]
             if budget <= 0 or sec_positions.numel() == 0:
                 continue
             budget = min(budget, sec_positions.numel())
-            sec_scores = token_scores[:, sec_positions]  # (batch, n_sec_tokens)
-            top = sec_scores.topk(budget, dim=-1).indices  # (batch, budget)
-            kept_positions = sec_positions[top]  # (batch, budget)
-            keep_mask.scatter_(1, kept_positions, True)
+            top = token_scores[sec_positions].topk(budget).indices
+            keep_mask[sec_positions[top]] = True
 
-        n_kept = int(keep_mask[0].sum().item())
-        if n_kept == 0:
+        if not keep_mask.any():
+            # Degenerate (all-zero budgets) - keep everything rather than crash generation.
             return keys, values
 
-        kept_per_row = keep_mask.sum(dim=1)
-        assert torch.all(kept_per_row == kept_per_row[0]), "Uneven keep counts across batch rows"
-
-        gather_indices = keep_mask.float().argsort(dim=-1, descending=True)[:, :n_kept]
-        gather_indices = gather_indices.sort(dim=-1).values  # restore ascending order within kept set
-        gather_indices_expanded = (
-            gather_indices.unsqueeze(1).unsqueeze(-1).expand(-1, keys.shape[1], -1, module.head_dim)
+        kept_indices = keep_mask.nonzero(as_tuple=True)[0]  # ascending, chronological order
+        gather_indices = (
+            kept_indices.view(1, 1, -1, 1).expand(1, keys.shape[1], -1, module.head_dim)
         )
-
-        keys = keys.gather(2, gather_indices_expanded).contiguous()
-        values = values.gather(2, gather_indices_expanded).contiguous()
+        keys = keys.gather(2, gather_indices).contiguous()
+        values = values.gather(2, gather_indices).contiguous()
         return keys, values
