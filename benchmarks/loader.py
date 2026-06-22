@@ -7,12 +7,19 @@
    across sections), mirroring the note-bloat pattern documented in Wornow et
    al. (arXiv:2412.16178) and the "Addressing Note Bloat" EHR study cited in
    the project brief.
+
+2. `load_pubmedqa` — real biomedical long-context QA from the public
+   `qiaojin/PubMedQA` dataset on the Hugging Face Hub (no gating, no license
+   agreement required). Each example's structured-abstract paragraphs
+   (BACKGROUND/OBJECTIVE/METHODS/RESULTS/CONCLUSIONS) become sections via
+   `domain_kv.section_parser.from_labeled_paragraphs`, and the yes/no/maybe
+   `final_decision` is the scoring target.
 """
 from dataclasses import dataclass, field
 from typing import List, Optional
 import random
 
-from domain_kv.section_parser import SectionedNote, extract_sections
+from domain_kv.section_parser import SectionedNote, extract_sections, from_labeled_paragraphs
 
 
 @dataclass
@@ -78,6 +85,34 @@ def load_synthetic_notes(n: int = 20, seed: int = 0) -> List[BenchmarkExample]:
                 question="What medication was started and at what dose?",
                 expected_answer=f"{drug} {dose}",
                 answer_type="f1",
+            )
+        )
+    return examples
+
+
+def load_pubmedqa(n: int = 20, split: str = "train") -> List[BenchmarkExample]:
+    """Load `n` examples from the public `qiaojin/PubMedQA` (pqa_labeled)
+    dataset. Requires network access on first call (cached by `datasets`
+    afterwards). Each example asks the dataset's natural yes/no/maybe question
+    against the structured abstract.
+    """
+    from datasets import load_dataset
+
+    ds = load_dataset("qiaojin/PubMedQA", "pqa_labeled", split=split)
+    ds = ds.select(range(min(n, len(ds))))
+
+    examples = []
+    for row in ds:
+        ctx = row["context"]
+        note = from_labeled_paragraphs(ctx["labels"], ctx["contexts"])
+        examples.append(
+            BenchmarkExample(
+                example_id=f"pubmedqa_{row['pubid']}",
+                note=note,
+                question=row["question"],
+                expected_answer=row["final_decision"],
+                answer_type="choice",
+                choices=["yes", "no", "maybe"],
             )
         )
     return examples
