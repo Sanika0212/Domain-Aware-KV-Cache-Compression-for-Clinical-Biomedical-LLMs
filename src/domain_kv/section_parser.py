@@ -124,11 +124,15 @@ def tag_token_sections(note: SectionedNote, tokenizer) -> Tuple[np.ndarray, List
     canonical_names = sorted({s.canonical for s in note.sections})
     name_to_idx = {n: i for i, n in enumerate(canonical_names)}
 
+    # Build a char->section lookup via sorted spans for fast bisection.
     spans = sorted(((s.start, s.end, s.canonical) for s in note.sections), key=lambda x: x[0])
 
     def section_for_char(c: int) -> str:
+        # Header text preceding a section's content span is assigned to the
+        # section it introduces (the first span with start > c), not to
+        # whichever span happens to sort last.
         for start, end, canon in spans:
-            if start <= c < end:
+            if c < end:
                 return canon
         return spans[-1][2] if spans else "full_note"
 
