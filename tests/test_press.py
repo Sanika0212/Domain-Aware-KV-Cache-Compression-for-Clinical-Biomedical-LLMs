@@ -37,9 +37,10 @@ def test_compress_respects_per_section_budgets():
     assert new_values.shape[2] == 5
 
 
-def test_compress_keeps_highest_norm_tokens_within_a_section():
-    # Single section; budget=2 out of 5. KnormPress scores by key L2 norm, so
-    # the two largest-norm keys must be the ones kept.
+def test_compress_keeps_lowest_norm_tokens_within_a_section():
+    # Single section; budget=2 out of 5. KnormPress scores -norm (per
+    # https://arxiv.org/pdf/2406.11430, low key-norm correlates with high
+    # attention), so the two *smallest*-norm keys must be the ones kept.
     seq_len = 5
     section_ids = torch.zeros(seq_len, dtype=torch.long)
     budgets = {0: 2}
@@ -55,7 +56,7 @@ def test_compress_keeps_highest_norm_tokens_within_a_section():
     new_keys, _ = press.compress(FakeModule(), hidden_states, keys, values, None, {})
 
     kept_norms = new_keys[0, 0, :, 0].tolist()
-    assert sorted(kept_norms) == [4.0, 5.0]
+    assert sorted(kept_norms) == [1.0, 2.0]
 
 
 def test_compress_raises_without_set_document():
