@@ -87,6 +87,40 @@ PYTHONPATH=src:. python benchmarks/plot_results.py --csv results/runs.csv --out-
 
 ---
 
+## Architecture
+
+```
+clinical note (text)
+   │
+   ▼
+SectionedNote                                  section_parser.py
+   regex header segmentation (chief complaint, HPI, labs, meds, ...)
+   OR from_labeled_paragraphs() for pre-structured sources (PubMedQA)
+   │
+   ▼
+tag_token_sections(note, tokenizer)            section_parser.py
+   real tokenizer offset_mapping -> per-token section_id array
+   │
+   ▼
+allocate_token_budgets(section_ids, ...)       allocator.py
+   per-section token budget, weighted by CLINICAL_IMPORTANCE_PROFILE
+   │
+   ▼
+DomainAwarePress(base_press=KnormPress())      press.py  ← the contribution
+   kvpress.ScorerPress subclass: within each section, keep the
+   top-budget[section] tokens by the delegated scorer; gather kept K/V.
+   │
+   ▼
+with press(model):
+    model.model(input_ids=context_ids, past_key_values=cache)   # real prefill,
+                                                                  # real compression
+   │
+   ▼
+generate_answer(...)  →  real greedy decoding against the compressed cache
+```
+
+---
+
 ## Real Results
 
 Run on `Qwen/Qwen2.5-0.5B-Instruct`, Apple M4 CPU, synthetic EHR-structured
